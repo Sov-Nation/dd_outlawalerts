@@ -1,13 +1,6 @@
-ESX = nil
-local connectedPlayers = {}
-local notExpl = {  
-	3,
-	13,
-	20,
-	21,
-	22,
-	39,
-}
+ESX 					= nil
+local connectedPlayers 	= {}
+local notExpl 			= {3, 13, 20, 21, 22, 39}
 
 local text = {
 	["Shots Fired"] = {"~r~Shots fired ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
