@@ -256,7 +256,7 @@ function alert(event)
 			end
 			TriggerEvent('dd_reportcrime:playsound', event, zone, citizen)
 			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config[event].Bliptime, Config[event].Colour, plyPos.x, plyPos.y, plyPos.z)
-			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, street1, street2, text, sex)
+			TriggerServerEvent("dd_outlawalerts:eventInProgress", event, zone, street1, street2, text, sex)
 			Wait(Config[event].Waittime*1000)
 		end
 	end
@@ -276,7 +276,7 @@ AddEventHandler('dd_outlawalerts:explosionAlert', function(posX, posY, posZ)
 		if alertChance(Config[event].Chance) then
 			TriggerEvent('dd_reportcrime:playsound', event, zone, citizen)
 			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config[event].Bliptime, Config[event].Colour, posX, posY, posZ)
-			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, street1, street2, text, sex)
+			TriggerServerEvent("dd_outlawalerts:eventInProgress", event, zone, street1, street2, text, sex)
 			Wait(Config[event].Waittime*1000)
 		end
 	end

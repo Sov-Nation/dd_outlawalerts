@@ -1,5 +1,6 @@
 ESX = nil
 local connectedPlayers = {}
+local isbusy = false
 local notExpl = {  
 	3,
 	13,
@@ -10,15 +11,24 @@ local notExpl = {
 }
 
 local text = {
-	["Shots Fired"] = {"~r~Shots fired ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Civil Disturbance"] = {"~r~Civil Disturbance ~w~involving a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Grand Theft Auto"] = {"~r~Grand Theft Auto ~w~of a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"},
-	["Vehicle Theft"] = {"Attempted ~r~theft ~w~of a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"},
-	["Car Chopping"] = {"Suspected ~r~car chopping ~w~by a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"},
-	["Drug Deal"] = {"Suspected ~r~drug deal ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Bank Robbery"] = {"~r~Bank Robbery ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Shop Robbery"] = {"~r~Shop Robbery ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Explosion"] = {"~r~Explosion ~w~reported ~r~", "atbetween", "street1", "xand", "street2", "", "", ""}
+	["Shots Fired"] = {"~r~Shots fired ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""
+	},
+	["Civil Disturbance"] = {"~r~Civil Disturbance ~w~involving a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""
+	},
+	["Grand Theft Auto"] = {"~r~Grand Theft Auto ~w~of a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"
+	},
+	["Vehicle Theft"] = {"Attempted ~r~theft ~w~of a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"
+	},
+	["Car Chopping"] = {"Suspected ~r~car chopping ~w~by a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"
+	},
+	["Drug Deal"] = {"Suspected ~r~drug deal ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""
+	},
+	["Bank Robbery"] = {"~r~Bank Robbery ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""
+	},
+	["Shop Robbery"] = {"~r~Shop Robbery ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""
+	},
+	["Explosion"] = {"~r~Explosion ~w~reported ~r~", "atbetween", "street1", "xand", "street2", "", "", ""
+	}
 }
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -108,13 +118,13 @@ end
 
 RegisterServerEvent('dd_outlawalerts:eventInProgress')
 AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, street1, street2, veh, sex)
-	local msg = {}
+	local message = {}
 	if street2 == "" then
 		atbetween = " ~w~at ~r~"
 		xand = ""
 	elseif street2 ~= "" then
 		atbetween = " ~w~between ~r~"
-		xand = " ~w~and ~r~"
+		xand = "~w~ and ~r~"
 	end
 	for k, v in pairs(text[event]) do
 		if v == "street1" then
@@ -130,9 +140,9 @@ AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, street1
 		elseif v == "xand" then
 			v = xand
 		end
-		table.insert(msg, k, v)
+		table.insert(message, k, v)
 	end
-	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, msg[1]..msg[2]..msg[3]..msg[4]..msg[5]..msg[6]..msg[7]..msg[8])
+	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, message[1]..message[2]..message[3]..message[4]..message[5]..message[6]..message[7]..message[8])
 end)
 
 RegisterServerEvent('dd_outlawalerts:setOutlaw')
