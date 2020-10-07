@@ -1,6 +1,6 @@
 ESX              	= nil
 local PlayerData 	= {}
-local LEO 			= {"police", "sheriff", "state"}
+local LEO 		= {"police", "sheriff", "state"}
 local VehicleCrime 	= {"Grand Theft Auto", "Vehicle Theft", "Car Chopping"}
 
 local zones = { 
