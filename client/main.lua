@@ -200,23 +200,23 @@ Citizen.CreateThread(function()
         Wait(0)
 		if IsPedShooting(GetPlayerPed(-1)) then
 			if checkGun() then
-				alert("Shots Fired")
+				alert("Shots Fired", citizen, "LEO")
 			end
 			Wait(500)
 		elseif IsPedInMeleeCombat(GetPlayerPed(-1)) and true then 
-			alert("Civil Disturbance")
+			alert("Civil Disturbance", citizen, "LEO")
 			Wait(500)
 		elseif IsPedJacking(GetPlayerPed(-1)) then
-			alert("Grand Theft Auto")
+			alert("Grand Theft Auto", citizen, "LEO")
 			Wait(500)
 		elseif IsPedTryingToEnterALockedVehicle(GetPlayerPed(-1)) then
-			alert("Vehicle Theft")
+			alert("Vehicle Theft", citizen, "LEO")
 			Wait(500)
 		end
 	end
 end)
 
-function alert(event)
+function alert(event, sender, receiver)
 	local ped = GetPlayerPed(-1)
 	local plyPos = GetEntityCoords(ped,  true)
 	local s1, s2 = GetStreetNameAtCoord(plyPos.x, plyPos.y, plyPos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt())
@@ -242,7 +242,7 @@ function alert(event)
 			if Config[event].Outlaw then
 				TriggerServerEvent('dd_outlawalerts:setOutlaw', Config[event].Colour)
 			end
-			TriggerEvent('dd_reportcrime:playsound', event, zone, citizen)
+			TriggerEvent('dd_reportcrime:playsound', event, zone, sender, receiver)
 			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config[event].Bliptime, Config[event].Colour, plyPos.x, plyPos.y, plyPos.z)
 			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, street1, street2, text, sex)
 			Wait(Config[event].Waittime*1000)
@@ -262,7 +262,7 @@ AddEventHandler('dd_outlawalerts:explosionAlert', function(posX, posY, posZ)
 	end
 	if Config[event].Populated == false or has_value(popzones, zone) then
 		if alertChance(Config[event].Chance) then
-			TriggerEvent('dd_reportcrime:playsound', event, zone, citizen)
+			TriggerEvent('dd_reportcrime:playsound', event, zone, sender, receiver)
 			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config[event].Bliptime, Config[event].Colour, posX, posY, posZ)
 			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, street1, street2, text, sex)
 			Wait(Config[event].Waittime*1000)
@@ -272,5 +272,5 @@ end)
 
 RegisterNetEvent('dd_outlawalerts:triggerAlert')
 AddEventHandler('dd_outlawalerts:triggerAlert', function(event)
-	alert(event)
+	alert(event, sender, receiver)
 end)
