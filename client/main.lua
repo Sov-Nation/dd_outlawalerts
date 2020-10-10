@@ -129,12 +129,10 @@ end
 
 function alertChance(ac)
 	local dr = math.random(1, 100)
-    percentage = ac
-    if(dr < percentage)then
-        return true
-    else
-        return false
-    end
+    if(dr <= ac)then
+		return true
+	end
+	return false
 end
 
 RegisterNetEvent('dd_outlawalerts:Notify')
@@ -208,13 +206,22 @@ AddEventHandler('dd_outlawalerts:outlawBlip', function(identifier, blipColour, c
 	end
 end)
 
+function ownerCheck(event, plate)
+	if Config[event].Ownershipcheck then
+		ESX.TriggerServerCallback('dd_outlawalerts:isVehicleOwner', function(cb)
+			isOwner = cb
+		end, plate)
+	end
+	Wait(1000)
+	return isOwner
+end
+
 function checkGun()
 	local currentWeapon = GetSelectedPedWeapon(GetPlayerPed(-1))
 	if has_value(weaponwhitelist, currentWeapon) and not IsPedCurrentWeaponSilenced(GetPlayerPed(-1))then
 		return true
-	else
-		return false
 	end
+	return false
 end
 
 RegisterNetEvent('dd_outlawalerts:waitLoop')
@@ -258,6 +265,8 @@ function alert(event, sender, receiver, eventPos)
 	local street2 = GetStreetNameFromHashKey(s2)
 	local zone = zones[GetNameOfZone(eventPos.x, eventPos.y, eventPos.z)]
 	local veh = GetVehiclePedIsUsing(ped)
+	local plate = GetVehicleNumberPlateText(veh)
+	local pColour, sColour = GetVehicleColours(veh)
 	local display = GetDisplayNameFromVehicleModel(GetEntityModel(veh))
 	local text = GetLabelText(display)
 	if text == "NULL" then
@@ -272,7 +281,12 @@ function alert(event, sender, receiver, eventPos)
 		sex = "female"
 	end
 	if Config[event].Populated == false or has_value(popzones, zone) then
-		if alertChance(Config[event].Chance) then
+		if ownerCheck(event, plate) then
+			ac = (Config[event].Chance/Config.stealOwnChance)
+		else
+			ac = Config[event].Chance
+		end
+		if alertChance(ac) then
 			if Config[event].Outlaw then
 				TriggerServerEvent('dd_outlawalerts:setOutlaw', Config[event].Colour)
 			end

@@ -6,6 +6,7 @@ Config = {
         Outlawtime = 120,
         Chance = 50,
         Populated = true,
+        Ownershipcheck = false,
         Waittime = 5
     },
     ["Civil Disturbance"] = {
@@ -15,6 +16,7 @@ Config = {
         Outlawtime = 60,
         Chance = 20,
         Populated = true,
+        Ownershipcheck = false,
         Waittime = 15
     },
     ["Grand Theft Auto"] = {
@@ -24,6 +26,7 @@ Config = {
         Outlawtime = 120,
         Chance = 75,
         Populated = false,
+        Ownershipcheck = true,
         Waittime = 5
     },
     ["Vehicle Theft"] = {
@@ -33,6 +36,7 @@ Config = {
         Outlawtime = 60,
         Chance = 25,
         Populated = true,
+        Ownershipcheck = true,
         Waittime = 5
     },
     ["Weaponized Vehicle"] = {
@@ -42,6 +46,7 @@ Config = {
         Outlawtime = 60,
         Chance = 5,
         Populated = true,
+        Ownershipcheck = false,
         Waittime = 30
     },
     ["Car Chopping"] = {
@@ -51,6 +56,7 @@ Config = {
         Outlawtime = 60,
         Chance = 60,
         Populated = false,
+        Ownershipcheck = true,
         Waittime = 5
     },
     ["Drug Deal"] = {
@@ -60,6 +66,7 @@ Config = {
         Outlawtime = 60,
         Chance = 40,
         Populated = true,
+        Ownershipcheck = false,
         Waittime = 5
     },
     ["Bank Robbery"] = {
@@ -69,6 +76,8 @@ Config = {
         Outlawtime = 180,
         Chance = 100,
         Populated = false,
+        Ownershipcheck = false,
+
         Waittime = 5
     },
     ["Shop Robbery"] = {
@@ -78,6 +87,8 @@ Config = {
         Outlawtime = 120,
         Chance = 90,
         Populated = false,
+        Ownershipcheck = false,
+
         Waittime = 5
     },
     ["Explosion"] = {
@@ -87,6 +98,9 @@ Config = {
         Outlawtime = 120,
         Chance = 90,
         Populated = true,
+        Ownershipcheck = false,
         Waittime = 1
     }
 }
+
+Config.stealOwnChance = 10 -- Chance to trigger an alert for trying to steal your own car, compounds with other probabilities

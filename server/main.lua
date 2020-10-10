@@ -159,17 +159,17 @@ AddEventHandler('dd_outlawalerts:alertPos', function(event, blipAlertTime, blipC
 	TriggerClientEvent('dd_outlawalerts:alertPlace', -1, event, blipAlertTime, blipColour, ax, ay, az )
 end)
 
--- ESX.RegisterServerCallback('outlawalert:isVehicleOwner', function(source, cb, plate)
--- 	local identifier = GetPlayerIdentifier(source, 0)
+ESX.RegisterServerCallback('dd_outlawalerts:isVehicleOwner', function(source, cb, plate)
+	local identifier = GetPlayerIdentifier(source, 0)
 
--- 	MySQL.Async.fetchAll('SELECT owner FROM owned_vehicles WHERE owner = @owner AND plate = @plate', {
--- 		['@owner'] = identifier,
--- 		['@plate'] = plate
--- 	}, function(result)
--- 		if result[1] then
--- 			cb(result[1].owner == identifier)
--- 		else
--- 			cb(false)
--- 		end
--- 	end)
--- end)
+	MySQL.Async.fetchAll('SELECT owner FROM owned_vehicles WHERE owner = @owner AND plate = @plate', {
+		['@owner'] = identifier,
+		['@plate'] = plate
+	}, function(result)
+		if result[1] then
+			cb(result[1].owner == identifier)
+		else
+			cb(false)
+		end
+	end)
+end)
