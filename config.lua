@@ -35,6 +35,15 @@ Config = {
         Populated = true,
         Waittime = 5
     },
+    ["Weaponized Vehicle"] = {
+        Colour = 1,
+        Bliptime = 60,
+        Outlaw = false,
+        Outlawtime = 60,
+        Chance = 5,
+        Populated = true,
+        Waittime = 30
+    },
     ["Car Chopping"] = {
         Colour = 5,
         Bliptime = 60,

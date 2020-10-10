@@ -1,17 +1,19 @@
 ESX              	= nil
 local PlayerData 	= {}
-local LEO 		= {"police", "sheriff", "state"}
-local VehicleCrime 	= {"Grand Theft Auto", "Vehicle Theft", "Car Chopping"}
+local LEO 			= {"police", "sheriff", "state"}
 
-local zones = { 
-['AIRP'] = "Los Santos International Airport", ['ALAMO'] = "Alamo Sea", ['ALTA'] = "Alta", ['ARMYB'] = "Fort Zancudo", ['BANHAMC'] = "Banham Canyon Dr", ['BANNING'] = "Banning", ['BEACH'] = "Vespucci Beach", ['BHAMCA'] = "Banham Canyon", ['BRADP'] = "Braddock Pass", ['BRADT'] = "Braddock Tunnel", ['BURTON'] = "Burton", ['CALAFB'] = "Calafia Bridge", ['CANNY'] = "Raton Canyon", ['CCREAK'] = "Cassidy Creek", ['CHAMH'] = "Chamberlain Hills", ['CHIL'] = "Vinewood Hills", ['CHU'] = "Chumash", ['CMSW'] = "Chiliad Mountain State Wilderness", ['CYPRE'] = "Cypress Flats", ['DAVIS'] = "Davis", ['DELBE'] = "Del Perro Beach", ['DELPE'] = "Del Perro", ['DELSOL'] = "Puerto Del Sol", ['DESRT'] = "Grand Senora Desert", ['DOWNT'] = "Downtown", ['DTVINE'] = "Downtown Vinewood", ['EAST_V'] = "East Vinewood", ['EBURO'] = "El Burro Heights", ['ELGORL'] = "El Gordo Lighthouse", ['ELYSIAN'] = "Elysian Island", ['GALFISH'] = "Galilee", ['GOLF'] = "GWC and Golfing Society", ['GRAPES'] = "Grapeseed", ['GREATC'] = "Great Chaparral", ['HARMO'] = "Harmony", ['HAWICK'] = "Hawick", ['HORS'] = "Vinewood Racetrack", ['HUMLAB'] = "Humane Labs and Research", ['JAIL'] = "Bolingbroke Penitentiary", ['KOREAT'] = "Little Seoul", ['LACT'] = "Land Act Reservoir", ['LAGO'] = "Lago Zancudo", ['LDAM'] = "Land Act Dam", ['LEGSQU'] = "Legion Square", ['LMESA'] = "La Mesa", ['LOSPUER'] = "La Puerta", ['MIRR'] = "Mirror Park", ['MORN'] = "Morningwood", ['MOVIE'] = "Richards Majestic", ['MTCHIL'] = "Mount Chiliad", ['MTGORDO'] = "Mount Gordo", ['MTJOSE'] = "Mount Josiah", ['MURRI'] = "Murrieta Heights", ['NCHU'] = "North Chumash", ['NOOSE'] = "N.O.O.S.E", ['OCEANA'] = "Pacific Ocean", ['PALCOV'] = "Paleto Cove", ['PALETO'] = "Paleto Bay", ['PALFOR'] = "Paleto Forest", ['PALHIGH'] = "Palomino Highlands", ['PALMPOW'] = "Palmer-Taylor Power Station", ['PBLUFF'] = "Pacific Bluffs", ['PBOX'] = "Pillbox Hill", ['PROCOB'] = "Procopio Beach", ['RANCHO'] = "Rancho", ['RGLEN'] = "Richman Glen", ['RICHM'] = "Richman", ['ROCKF'] = "Rockford Hills", ['RTRAK'] = "Redwood Lights Track", ['SANAND'] = "San Andreas", ['SANCHIA'] = "San Chianski Mountain Range", ['SANDY'] = "Sandy Shores", ['SKID'] = "Mission Row", ['SLAB'] = "Slab City", ['STAD'] = "Maze Bank Arena", ['STRAW'] = "Strawberry", ['TATAMO'] = "Tataviam Mountains", ['TERMINA'] = "Terminal", ['TEXTI'] = "Textile City", ['TONGVAH'] = "Tongva Hills", ['TONGVAV'] = "Tongva Valley", ['VCANA'] = "Vespucci Canals", ['VESP'] = "Vespucci", ['VINE'] = "Vinewood", ['WINDF'] = "Ron Alternates Wind Farm", ['WVINE'] = "West Vinewood", ['ZANCUDO'] = "Zancudo River", ['ZP_ORT'] = "Port of South Los Santos", ['ZQ_UAR'] = "Davis Quartz" 
+local waiting = {
+	["Shots Fired"] = false, ["Civil Disturbance"] = false, ["Grand Theft Auto"] = false, ["Vehicle Theft"] = false, ["Weaponized Vehicle"] = false, ["Car Chopping"] = false, ["Drug Deal"] = false, ["Bank Robbery"] = false, ["Shop Robbery"] = false, ["Explosion"] = false
+}
+local zones = {
+	['AIRP'] = "Los Santos International Airport", ['ALAMO'] = "Alamo Sea", ['ALTA'] = "Alta", ['ARMYB'] = "Fort Zancudo", ['BANHAMC'] = "Banham Canyon Dr", ['BANNING'] = "Banning", ['BEACH'] = "Vespucci Beach", ['BHAMCA'] = "Banham Canyon", ['BRADP'] = "Braddock Pass", ['BRADT'] = "Braddock Tunnel", ['BURTON'] = "Burton", ['CALAFB'] = "Calafia Bridge", ['CANNY'] = "Raton Canyon", ['CCREAK'] = "Cassidy Creek", ['CHAMH'] = "Chamberlain Hills", ['CHIL'] = "Vinewood Hills", ['CHU'] = "Chumash", ['CMSW'] = "Chiliad Mountain State Wilderness", ['CYPRE'] = "Cypress Flats", ['DAVIS'] = "Davis", ['DELBE'] = "Del Perro Beach", ['DELPE'] = "Del Perro", ['DELSOL'] = "Puerto Del Sol", ['DESRT'] = "Grand Senora Desert", ['DOWNT'] = "Downtown", ['DTVINE'] = "Downtown Vinewood", ['EAST_V'] = "East Vinewood", ['EBURO'] = "El Burro Heights", ['ELGORL'] = "El Gordo Lighthouse", ['ELYSIAN'] = "Elysian Island", ['GALFISH'] = "Galilee", ['GOLF'] = "GWC and Golfing Society", ['GRAPES'] = "Grapeseed", ['GREATC'] = "Great Chaparral", ['HARMO'] = "Harmony", ['HAWICK'] = "Hawick", ['HORS'] = "Vinewood Racetrack", ['HUMLAB'] = "Humane Labs and Research", ['JAIL'] = "Bolingbroke Penitentiary", ['KOREAT'] = "Little Seoul", ['LACT'] = "Land Act Reservoir", ['LAGO'] = "Lago Zancudo", ['LDAM'] = "Land Act Dam", ['LEGSQU'] = "Legion Square", ['LMESA'] = "La Mesa", ['LOSPUER'] = "La Puerta", ['MIRR'] = "Mirror Park", ['MORN'] = "Morningwood", ['MOVIE'] = "Richards Majestic", ['MTCHIL'] = "Mount Chiliad", ['MTGORDO'] = "Mount Gordo", ['MTJOSE'] = "Mount Josiah", ['MURRI'] = "Murrieta Heights", ['NCHU'] = "North Chumash", ['NOOSE'] = "N.O.O.S.E", ['OCEANA'] = "Pacific Ocean", ['PALCOV'] = "Paleto Cove", ['PALETO'] = "Paleto Bay", ['PALFOR'] = "Paleto Forest", ['PALHIGH'] = "Palomino Highlands", ['PALMPOW'] = "Palmer-Taylor Power Station", ['PBLUFF'] = "Pacific Bluffs", ['PBOX'] = "Pillbox Hill", ['PROCOB'] = "Procopio Beach", ['RANCHO'] = "Rancho", ['RGLEN'] = "Richman Glen", ['RICHM'] = "Richman", ['ROCKF'] = "Rockford Hills", ['RTRAK'] = "Redwood Lights Track", ['SANAND'] = "San Andreas", ['SANCHIA'] = "San Chianski Mountain Range", ['SANDY'] = "Sandy Shores", ['SKID'] = "Mission Row", ['SLAB'] = "Slab City", ['STAD'] = "Maze Bank Arena", ['STRAW'] = "Strawberry", ['TATAMO'] = "Tataviam Mountains", ['TERMINA'] = "Terminal", ['TEXTI'] = "Textile City", ['TONGVAH'] = "Tongva Hills", ['TONGVAV'] = "Tongva Valley", ['VCANA'] = "Vespucci Canals", ['VESP'] = "Vespucci", ['VINE'] = "Vinewood", ['WINDF'] = "Ron Alternates Wind Farm", ['WVINE'] = "West Vinewood", ['ZANCUDO'] = "Zancudo River", ['ZP_ORT'] = "Port of South Los Santos", ['ZQ_UAR'] = "Davis Quartz" 
 }
 
-local popzones = { 
-"Los Santos International Airport", "Alta", "Fort Zancudo", "Banham Canyon Dr", "Banning", "Vespucci Beach", "Burton", "Chamberlain Hills", "Vinewood Hills", "Chumash", "Cypress Flats", "Davis", "Del Perro Beach", "Del Perro", "Puerto Del Sol", "Downtown", "Downtown Vinewood", "East Vinewood", "El Burro Heights", "Elysian Island", "Galilee", "GWC and Golfing Society", "Grapeseed", "Harmony", "Hawick", "Vinewood Racetrack", "Humane Labs and Research", "Bolingbroke Penitentiary", "Little Seoul", "Land Act Dam", "Legion Square", "La Mesa", "La Puerta", "Mirror Park", "Morningwood", "Richards Majestic", "Murrieta Heights", "North Chumash", "N.O.O.S.E", "Paleto Bay", "Paleto Forest", "Palmer-Taylor Power Station", "Pacific Bluffs", "Pillbox Hill", "Rancho", "Richman Glen", "Richman",  "Rockford Hills",  "Sandy Shores",  "Mission Row",  "Stab City",  "Maze Bank Arena", "Strawberry", "Terminal", "Textile City", "Vespucci Canals", "Vespucci", "Vinewood", "West Vinewood", "Port of South Los Santos", "Davis Quartz" 
+local popzones = {
+	"Los Santos International Airport", "Alta", "Fort Zancudo", "Banham Canyon Dr", "Banning", "Vespucci Beach", "Burton", "Chamberlain Hills", "Vinewood Hills", "Chumash", "Cypress Flats", "Davis", "Del Perro Beach", "Del Perro", "Puerto Del Sol", "Downtown", "Downtown Vinewood", "East Vinewood", "El Burro Heights", "Elysian Island", "Galilee", "GWC and Golfing Society", "Grapeseed", "Harmony", "Hawick", "Vinewood Racetrack", "Humane Labs and Research", "Bolingbroke Penitentiary", "Little Seoul", "Land Act Dam", "Legion Square", "La Mesa", "La Puerta", "Mirror Park", "Morningwood", "Richards Majestic", "Murrieta Heights", "North Chumash", "N.O.O.S.E", "Paleto Bay", "Paleto Forest", "Palmer-Taylor Power Station", "Pacific Bluffs", "Pillbox Hill", "Rancho", "Richman Glen", "Richman",  "Rockford Hills",  "Sandy Shores",  "Mission Row",  "Stab City",  "Maze Bank Arena", "Strawberry", "Terminal", "Textile City", "Vespucci Canals", "Vespucci", "Vinewood", "West Vinewood", "Port of South Los Santos", "Davis Quartz" 
 }
 
-local whitelist = {
+local weaponwhitelist = {
 	GetHashKey("WEAPON_PISTOL"),
 	GetHashKey("WEAPON_COMBATPISTOL"),
 	GetHashKey("WEAPON_APPISTOL"),
@@ -88,6 +90,10 @@ local whitelist = {
 	-- GetHashKey("WEAPON_FLARE")
 }
 
+local vehicleblacklist = {
+	"FIRETRUK", "RIOT2", "POLMAV"
+}
+
 Citizen.CreateThread(function()
 	while ESX == nil do
 		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
@@ -104,6 +110,15 @@ RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
   PlayerData.job = job
 end)
+
+function has_value(tab, val)
+    for index, value in pairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+    return false
+end
 
 function alertChance(ac)
 	local dr = math.random(1, 100)
@@ -128,24 +143,26 @@ end)
 
 RegisterNetEvent('dd_outlawalerts:alertPlace')
 AddEventHandler('dd_outlawalerts:alertPlace', function(title, blipAlertTime, blipColour, ax, ay, az)
-	if has_value(LEO, PlayerData.job.name) then
-		local trans = 250
-		local alertBlip = AddBlipForCoord(ax, ay, az)
-		SetBlipSprite(alertBlip, 1)
-		SetBlipColour(alertBlip, blipColour)
-		SetBlipAlpha(alertBlip, trans)
-		SetBlipAsShortRange(alertBlip, 0)
+	if PlayerData.job ~= nil then
+		if has_value(LEO, PlayerData.job.name) then
+			local trans = 250
+			local alertBlip = AddBlipForCoord(ax, ay, az)
+			SetBlipSprite(alertBlip, 1)
+			SetBlipColour(alertBlip, blipColour)
+			SetBlipAlpha(alertBlip, trans)
+			SetBlipAsShortRange(alertBlip, 0)
 
-		BeginTextCommandSetBlipName('STRING')
-		AddTextComponentSubstringPlayerName(title)
-		EndTextCommandSetBlipName(alertBlip)
-		while trans ~= 0 do
-			Wait(blipAlertTime * 4)
-			trans = trans - 1
-			SetBlipAlpha(alertBlip,  trans)
-			if trans == 0 then
-				SetBlipSprite(alertBlip, 2)
-				return 
+			BeginTextCommandSetBlipName('STRING')
+			AddTextComponentSubstringPlayerName(title)
+			EndTextCommandSetBlipName(alertBlip)
+			while trans ~= 0 do
+				Wait(blipAlertTime * 4)
+				trans = trans - 1
+				SetBlipAlpha(alertBlip,  trans)
+				if trans == 0 then
+					SetBlipSprite(alertBlip, 2)
+					return 
+				end
 			end
 		end
 	end
@@ -153,10 +170,7 @@ end)
 
 RegisterNetEvent('dd_outlawalerts:outlawBlip')
 AddEventHandler('dd_outlawalerts:outlawBlip', function(identifier, blipColour, connectedPlayers)
-	if PlayerData.job ~= nil 
-	and has_value(LEO, PlayerData.job.name) 
-	and blipColour ~= 0
-	then
+	if PlayerData.job ~= nil and has_value(LEO, PlayerData.job.name) and blipColour ~= 0 then
 		for k,v in pairs(connectedPlayers) do
 			if identifier == v then
 				ped = GetPlayerFromServerId(k)
@@ -189,35 +203,45 @@ end)
 
 function checkGun()
 	local currentWeapon = GetSelectedPedWeapon(GetPlayerPed(-1))
-	if has_value(whitelist, currentWeapon) and not IsPedCurrentWeaponSilenced(GetPlayerPed(-1))then
+	if has_value(weaponwhitelist, currentWeapon) and not IsPedCurrentWeaponSilenced(GetPlayerPed(-1))then
 		return true
 	else
 		return false
 	end
 end
 
+RegisterNetEvent('dd_outlawalerts:waitLoop')
+AddEventHandler('dd_outlawalerts:waitLoop', function(event)
+	waiting[event] = true
+	Wait(Config[event].Waittime*1000)
+	waiting[event] = false
+end)
+
 Citizen.CreateThread(function()
     while true do
         Wait(0)
 		if IsPedShooting(GetPlayerPed(-1)) then
 			if checkGun() then
-				alert("Shots Fired")
+				alert("Shots Fired", citizen, "LEO")
 			end
-			Wait(500)
-		elseif IsPedInMeleeCombat(GetPlayerPed(-1)) and true then 
-			alert("Civil Disturbance")
-			Wait(500)
+		elseif IsPedInMeleeCombat(GetPlayerPed(-1)) then 
+			alert("Civil Disturbance", citizen, "LEO")
 		elseif IsPedJacking(GetPlayerPed(-1)) then
-			alert("Grand Theft Auto")
-			Wait(500)
+			alert("Grand Theft Auto", citizen, "LEO")
 		elseif IsPedTryingToEnterALockedVehicle(GetPlayerPed(-1)) then
-			alert("Vehicle Theft")
-			Wait(500)
+			alert("Vehicle Theft", citizen, "LEO")
+		elseif DoesVehicleHaveWeapons(GetVehiclePedIsUsing(GetPlayerPed(-1))) == 1 then
+			if not has_value(vehicleblacklist, GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(GetPlayerPed(-1))))) then
+				alert("Weaponized Vehicle", citizen, "LEO")
+			end
 		end
 	end
 end)
 
-function alert(event)
+function alert(event, sender, receiver)
+	if waiting[event] then
+		return
+	end
 	local ped = GetPlayerPed(-1)
 	local plyPos = GetEntityCoords(ped,  true)
 	local s1, s2 = GetStreetNameAtCoord(plyPos.x, plyPos.y, plyPos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt())
@@ -243,12 +267,12 @@ function alert(event)
 			if Config[event].Outlaw then
 				TriggerServerEvent('dd_outlawalerts:setOutlaw', Config[event].Colour)
 			end
-			TriggerEvent('dd_reportcrime:playsound', event, zone, citizen)
+			TriggerEvent('dd_reportcrime:playsound', event, zone, sender, receiver)
 			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config[event].Bliptime, Config[event].Colour, plyPos.x, plyPos.y, plyPos.z)
 			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, street1, street2, text, sex)
-			Wait(Config[event].Waittime*1000)
 		end
 	end
+	TriggerEvent('dd_outlawalerts:waitLoop', event)
 end
 
 RegisterNetEvent('dd_outlawalerts:explosionAlert')
@@ -263,15 +287,15 @@ AddEventHandler('dd_outlawalerts:explosionAlert', function(posX, posY, posZ)
 	end
 	if Config[event].Populated == false or has_value(popzones, zone) then
 		if alertChance(Config[event].Chance) then
-			TriggerEvent('dd_reportcrime:playsound', event, zone, citizen)
+			TriggerEvent('dd_reportcrime:playsound', event, zone, sender, receiver)
 			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config[event].Bliptime, Config[event].Colour, posX, posY, posZ)
 			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, street1, street2, text, sex)
-			Wait(Config[event].Waittime*1000)
 		end
 	end
+	TriggerEvent('dd_outlawalerts:waitLoop', event)
 end)
 
 RegisterNetEvent('dd_outlawalerts:triggerAlert')
-AddEventHandler('dd_outlawalerts:triggerAlert', function(event)
-	alert(event)
+AddEventHandler('dd_outlawalerts:triggerAlert', function(event, sender, receiver)
+	alert(event, sender, receiver)
 end)
