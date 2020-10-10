@@ -222,32 +222,34 @@ Citizen.CreateThread(function()
         Wait(0)
 		if IsPedShooting(GetPlayerPed(-1)) then
 			if checkGun() then
-				alert("Shots Fired", citizen, "LEO")
+				alert("Shots Fired", citizen, "LEO", nil)
 			end
 		elseif IsPedInMeleeCombat(GetPlayerPed(-1)) then 
-			alert("Civil Disturbance", citizen, "LEO")
+			alert("Civil Disturbance", citizen, "LEO", nil)
 		elseif IsPedJacking(GetPlayerPed(-1)) then
-			alert("Grand Theft Auto", citizen, "LEO")
+			alert("Grand Theft Auto", citizen, "LEO", nil)
 		elseif IsPedTryingToEnterALockedVehicle(GetPlayerPed(-1)) then
-			alert("Vehicle Theft", citizen, "LEO")
+			alert("Vehicle Theft", citizen, "LEO", nil)
 		elseif DoesVehicleHaveWeapons(GetVehiclePedIsUsing(GetPlayerPed(-1))) == 1 then
 			if not has_value(vehicleblacklist, GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(GetPlayerPed(-1))))) then
-				alert("Weaponized Vehicle", citizen, "LEO")
+				alert("Weaponized Vehicle", citizen, "LEO", nil)
 			end
 		end
 	end
 end)
 
-function alert(event, sender, receiver)
+function alert(event, sender, receiver, eventPos)
 	if waiting[event] then
 		return
 	end
 	local ped = GetPlayerPed(-1)
-	local plyPos = GetEntityCoords(ped,  true)
-	local s1, s2 = GetStreetNameAtCoord(plyPos.x, plyPos.y, plyPos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt())
+	if eventPos == nil then
+		eventPos = GetEntityCoords(ped)
+	end
+	local s1, s2 = GetStreetNameAtCoord(eventPos.x, eventPos.y, eventPos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt())
 	local street1 = GetStreetNameFromHashKey(s1)
 	local street2 = GetStreetNameFromHashKey(s2)
-	local zone = zones[GetNameOfZone(plyPos.x, plyPos.y, plyPos.z)]
+	local zone = zones[GetNameOfZone(eventPos.x, eventPos.y, eventPos.z)]
 	local veh = GetVehiclePedIsUsing(ped)
 	local display = GetDisplayNameFromVehicleModel(GetEntityModel(veh))
 	local text = GetLabelText(display)
@@ -268,34 +270,14 @@ function alert(event, sender, receiver)
 				TriggerServerEvent('dd_outlawalerts:setOutlaw', Config[event].Colour)
 			end
 			TriggerEvent('dd_reportcrime:playsound', event, zone, sender, receiver)
-			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config[event].Bliptime, Config[event].Colour, plyPos.x, plyPos.y, plyPos.z)
+			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config[event].Bliptime, Config[event].Colour, eventPos.x, eventPos.y, eventPos.z)
 			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, street1, street2, text, sex)
 		end
 	end
 	TriggerEvent('dd_outlawalerts:waitLoop', event)
 end
 
-RegisterNetEvent('dd_outlawalerts:explosionAlert')
-AddEventHandler('dd_outlawalerts:explosionAlert', function(posX, posY, posZ)
-	local event = "Explosion"
-	local s1, s2 = GetStreetNameAtCoord(posX, posY, posZ, Citizen.PointerValueInt(), Citizen.PointerValueInt())
-	local street1 = GetStreetNameFromHashKey(s1)
-	local street2 = GetStreetNameFromHashKey(s2)
-	local zone = zones[GetNameOfZone(posX, posY, posZ)]
-	if zone == nil then
-		zone = "San Andreas"
-	end
-	if Config[event].Populated == false or has_value(popzones, zone) then
-		if alertChance(Config[event].Chance) then
-			TriggerEvent('dd_reportcrime:playsound', event, zone, sender, receiver)
-			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config[event].Bliptime, Config[event].Colour, posX, posY, posZ)
-			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, street1, street2, text, sex)
-		end
-	end
-	TriggerEvent('dd_outlawalerts:waitLoop', event)
-end)
-
 RegisterNetEvent('dd_outlawalerts:triggerAlert')
-AddEventHandler('dd_outlawalerts:triggerAlert', function(event, sender, receiver)
-	alert(event, sender, receiver)
+AddEventHandler('dd_outlawalerts:triggerAlert', function(event, sender, receiver, eventPos)
+	alert(event, sender, receiver, eventPos)
 end)
