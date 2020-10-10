@@ -31,10 +31,6 @@ AddEventHandler('explosionEvent', function(source, ev)
 	explosion(source, ev)
 end)
 
-ESX.RegisterServerCallback('dd_outlawalerts:getConnectedPlayers', function(source, cb)
-	cb(connectedPlayers)
-end)
-
 ESX.RegisterServerCallback('dd_outlawalerts:getItemAmount', function(source, cb, item)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local quantity = xPlayer.getInventoryItem(item).count
@@ -77,7 +73,6 @@ end
 
 function has_value(tab, val)
     for index, value in pairs(tab) do
-
         if value == val then
             return true
         end
@@ -86,18 +81,20 @@ function has_value(tab, val)
 end
 
 function explosion(source, ev)
-	for k, v in pairs(ev) do
-		eType = ev.explosionType
+	local eType = ev.explosionType
+	local eventPos = {}
+	local players = ESX.GetPlayers()
+	local scapegoat = players[1]
+	if not has_value(notExpl, eType) then
 		if ev.f210 ~= 0 then
 			entity = NetworkGetEntityFromNetworkId(ev.f210)
-			prop = GetEntityCoords(entity)
-			ev.posX = prop.x
-			ev.posY = prop.y
-			ev.posZ = prop.z
+			eventPos = GetEntityCoords(entity)
+		else
+			eventPos.x = ev.posX
+			eventPos.y = ev.posY
+			eventPos.z = ev.posZ
 		end
-	end
-	if not has_value(notExpl, eType) then
-		TriggerClientEvent('dd_outlawalerts:explosionAlert', -1, ev.posX, ev.posY, ev.posZ)
+		TriggerClientEvent('dd_outlawalerts:triggerAlert', scapegoat, "Explosion", citizen, "LEO", eventPos)
 	end
 end
 
@@ -138,7 +135,7 @@ AddEventHandler('dd_outlawalerts:setOutlaw', function(blipColour)
 		['@blipColour'] = blipColour
 	})
 	Wait(1000)
-TriggerEvent('dd_outlawalerts:getOutlaw', identifier)
+	TriggerEvent('dd_outlawalerts:getOutlaw', identifier)
 end)
 
 RegisterServerEvent('dd_outlawalerts:getOutlaw')

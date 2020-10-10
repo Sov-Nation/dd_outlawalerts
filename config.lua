@@ -87,6 +87,6 @@ Config = {
         Outlawtime = 120,
         Chance = 90,
         Populated = true,
-        Waittime = 5
+        Waittime = 1
     }
 }
