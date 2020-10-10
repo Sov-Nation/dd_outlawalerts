@@ -73,7 +73,6 @@ end
 
 function has_value(tab, val)
     for index, value in pairs(tab) do
-
         if value == val then
             return true
         end
@@ -83,9 +82,9 @@ end
 
 function explosion(source, ev)
 	local eType = ev.explosionType
+	local eventPos = {}
 	local players = ESX.GetPlayers()
 	local scapegoat = players[1]
-	print(scapegoat)
 	if not has_value(notExpl, eType) then
 		if ev.f210 ~= 0 then
 			entity = NetworkGetEntityFromNetworkId(ev.f210)
