@@ -77,7 +77,6 @@ Config = {
         Chance = 100,
         Populated = false,
         Ownershipcheck = false,
-
         Waittime = 5
     },
     ["Shop Robbery"] = {
@@ -88,7 +87,6 @@ Config = {
         Chance = 90,
         Populated = false,
         Ownershipcheck = false,
-
         Waittime = 5
     },
     ["Explosion"] = {
