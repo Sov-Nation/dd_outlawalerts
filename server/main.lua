@@ -7,6 +7,7 @@ local text = {
 	["Civil Disturbance"] = {"~r~Civil Disturbance ~w~involving a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
 	["Grand Theft Auto"] = {"~r~Grand Theft Auto ~w~of a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"},
 	["Vehicle Theft"] = {"Attempted ~r~theft ~w~of a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"},
+	["Weaponized Vehicle"] = {"Reports of a ~r~weaponized vehicle ~w~, a ~r~", "veh", "atbetween", "street1", "xand", "street2", "", ""},
 	["Car Chopping"] = {"Suspected ~r~car chopping ~w~by a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"},
 	["Drug Deal"] = {"Suspected ~r~drug deal ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
 	["Bank Robbery"] = {"~r~Bank Robbery ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
@@ -74,8 +75,8 @@ function AddPlayersToList()
 	TriggerClientEvent('dd_outlawalerts:updateConnectedPlayers', -1, connectedPlayers)
 end
 
-function has_value (tab, val)
-    for index, value in ipairs(tab) do
+function has_value(tab, val)
+    for index, value in pairs(tab) do
         if value == val then
             return true
         end
