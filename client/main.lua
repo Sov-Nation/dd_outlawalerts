@@ -246,7 +246,6 @@ Citizen.CreateThread(function()
 end)
 
 function alert(event, sender, receiver, eventPos)
-
 	if waiting[event] then
 		return
 	end
