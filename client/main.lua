@@ -296,6 +296,6 @@ AddEventHandler('dd_outlawalerts:explosionAlert', function(posX, posY, posZ)
 end)
 
 RegisterNetEvent('dd_outlawalerts:triggerAlert')
-AddEventHandler('dd_outlawalerts:triggerAlert', function(event)
+AddEventHandler('dd_outlawalerts:triggerAlert', function(event, sender, receiver)
 	alert(event, sender, receiver)
 end)
