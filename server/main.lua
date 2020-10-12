@@ -99,7 +99,7 @@ function explosion(source, ev)
 end
 
 RegisterServerEvent('dd_outlawalerts:eventInProgress')
-AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, street1, street2, veh, sex)
+AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, street1, street2, vehName, sex, plate, pcname, scname)
 	local msg = {}
 	if street2 == "" then
 		atbetween = " ~w~at ~r~"
