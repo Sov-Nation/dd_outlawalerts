@@ -5,13 +5,6 @@ local LEO 			= {"police", "sheriff", "state"}
 local waiting = {
 	["Shots Fired"] = false, ["Civil Disturbance"] = false, ["Grand Theft Auto"] = false, ["Vehicle Theft"] = false, ["Weaponized Vehicle"] = false, ["Car Chopping"] = false, ["Drug Deal"] = false, ["Bank Robbery"] = false, ["Shop Robbery"] = false, ["Explosion"] = false
 }
-local zones = {
-	['AIRP'] = "Los Santos International Airport", ['ALAMO'] = "Alamo Sea", ['ALTA'] = "Alta", ['ARMYB'] = "Fort Zancudo", ['BANHAMC'] = "Banham Canyon Dr", ['BANNING'] = "Banning", ['BEACH'] = "Vespucci Beach", ['BHAMCA'] = "Banham Canyon", ['BRADP'] = "Braddock Pass", ['BRADT'] = "Braddock Tunnel", ['BURTON'] = "Burton", ['CALAFB'] = "Calafia Bridge", ['CANNY'] = "Raton Canyon", ['CCREAK'] = "Cassidy Creek", ['CHAMH'] = "Chamberlain Hills", ['CHIL'] = "Vinewood Hills", ['CHU'] = "Chumash", ['CMSW'] = "Chiliad Mountain State Wilderness", ['CYPRE'] = "Cypress Flats", ['DAVIS'] = "Davis", ['DELBE'] = "Del Perro Beach", ['DELPE'] = "Del Perro", ['DELSOL'] = "Puerto Del Sol", ['DESRT'] = "Grand Senora Desert", ['DOWNT'] = "Downtown", ['DTVINE'] = "Downtown Vinewood", ['EAST_V'] = "East Vinewood", ['EBURO'] = "El Burro Heights", ['ELGORL'] = "El Gordo Lighthouse", ['ELYSIAN'] = "Elysian Island", ['GALFISH'] = "Galilee", ['GOLF'] = "GWC and Golfing Society", ['GRAPES'] = "Grapeseed", ['GREATC'] = "Great Chaparral", ['HARMO'] = "Harmony", ['HAWICK'] = "Hawick", ['HORS'] = "Vinewood Racetrack", ['HUMLAB'] = "Humane Labs and Research", ['JAIL'] = "Bolingbroke Penitentiary", ['KOREAT'] = "Little Seoul", ['LACT'] = "Land Act Reservoir", ['LAGO'] = "Lago Zancudo", ['LDAM'] = "Land Act Dam", ['LEGSQU'] = "Legion Square", ['LMESA'] = "La Mesa", ['LOSPUER'] = "La Puerta", ['MIRR'] = "Mirror Park", ['MORN'] = "Morningwood", ['MOVIE'] = "Richards Majestic", ['MTCHIL'] = "Mount Chiliad", ['MTGORDO'] = "Mount Gordo", ['MTJOSE'] = "Mount Josiah", ['MURRI'] = "Murrieta Heights", ['NCHU'] = "North Chumash", ['NOOSE'] = "N.O.O.S.E", ['OCEANA'] = "Pacific Ocean", ['PALCOV'] = "Paleto Cove", ['PALETO'] = "Paleto Bay", ['PALFOR'] = "Paleto Forest", ['PALHIGH'] = "Palomino Highlands", ['PALMPOW'] = "Palmer-Taylor Power Station", ['PBLUFF'] = "Pacific Bluffs", ['PBOX'] = "Pillbox Hill", ['PROCOB'] = "Procopio Beach", ['RANCHO'] = "Rancho", ['RGLEN'] = "Richman Glen", ['RICHM'] = "Richman", ['ROCKF'] = "Rockford Hills", ['RTRAK'] = "Redwood Lights Track", ['SANAND'] = "San Andreas", ['SANCHIA'] = "San Chianski Mountain Range", ['SANDY'] = "Sandy Shores", ['SKID'] = "Mission Row", ['SLAB'] = "Slab City", ['STAD'] = "Maze Bank Arena", ['STRAW'] = "Strawberry", ['TATAMO'] = "Tataviam Mountains", ['TERMINA'] = "Terminal", ['TEXTI'] = "Textile City", ['TONGVAH'] = "Tongva Hills", ['TONGVAV'] = "Tongva Valley", ['VCANA'] = "Vespucci Canals", ['VESP'] = "Vespucci", ['VINE'] = "Vinewood", ['WINDF'] = "Ron Alternates Wind Farm", ['WVINE'] = "West Vinewood", ['ZANCUDO'] = "Zancudo River", ['ZP_ORT'] = "Port of South Los Santos", ['ZQ_UAR'] = "Davis Quartz" 
-}
-
-local popzones = {
-	"Los Santos International Airport", "Alta", "Fort Zancudo", "Banham Canyon Dr", "Banning", "Vespucci Beach", "Burton", "Chamberlain Hills", "Vinewood Hills", "Chumash", "Cypress Flats", "Davis", "Del Perro Beach", "Del Perro", "Puerto Del Sol", "Downtown", "Downtown Vinewood", "East Vinewood", "El Burro Heights", "Elysian Island", "Galilee", "GWC and Golfing Society", "Grapeseed", "Harmony", "Hawick", "Vinewood Racetrack", "Humane Labs and Research", "Bolingbroke Penitentiary", "Little Seoul", "Land Act Dam", "Legion Square", "La Mesa", "La Puerta", "Mirror Park", "Morningwood", "Richards Majestic", "Murrieta Heights", "North Chumash", "N.O.O.S.E", "Paleto Bay", "Paleto Forest", "Palmer-Taylor Power Station", "Pacific Bluffs", "Pillbox Hill", "Rancho", "Richman Glen", "Richman",  "Rockford Hills",  "Sandy Shores",  "Mission Row",  "Stab City",  "Maze Bank Arena", "Strawberry", "Terminal", "Textile City", "Vespucci Canals", "Vespucci", "Vinewood", "West Vinewood", "Port of South Los Santos", "Davis Quartz" 
-}
 
 local weaponwhitelist = {
 	GetHashKey("WEAPON_PISTOL"),
@@ -297,10 +290,14 @@ function alertChance(ac)
 end
 
 RegisterNetEvent('dd_outlawalerts:Notify')
-AddEventHandler('dd_outlawalerts:Notify', function(title, zone, msg)
+AddEventHandler('dd_outlawalerts:Notify', function(title, zone, receiver, msg)
 	ESX.TriggerServerCallback('dd_outlawalerts:getItemAmount', function(quantity)
 		if PlayerData.job ~= nil then 
-			if has_value(LEO, PlayerData.job.name) or quantity > 0 then
+			if quantity > 0 then
+				ESX.ShowAdvancedNotification(title, zone, msg, 'CHAR_CALL911', 7)
+			elseif PlayerData.job.name == receiver then
+				ESX.ShowAdvancedNotification(title, zone, msg, 'CHAR_CALL911', 7)
+			elseif receiver == "LEO" and has_value(LEO, PlayerData.job.name) then
 				ESX.ShowAdvancedNotification(title, zone, msg, 'CHAR_CALL911', 7)
 			end
 		end
@@ -368,7 +365,7 @@ AddEventHandler('dd_outlawalerts:outlawBlip', function(identifier, blipColour, c
 end)
 
 function ownerCheck(event, plate)
-	if Config[event].Ownershipcheck then
+	if Config.Events[event].Ownershipcheck then
 		ESX.TriggerServerCallback('dd_outlawalerts:isVehicleOwner', function(cb)
 			isOwner = cb
 		end, plate)
@@ -388,7 +385,7 @@ end
 RegisterNetEvent('dd_outlawalerts:waitLoop')
 AddEventHandler('dd_outlawalerts:waitLoop', function(event)
 	waiting[event] = true
-	Wait(Config[event].Waittime*1000)
+	Wait(Config.Events[event].Waittime*1000)
 	waiting[event] = false
 end)
 
@@ -397,17 +394,17 @@ Citizen.CreateThread(function()
         Wait(0)
 		if IsPedShooting(GetPlayerPed(-1)) then
 			if checkGun() then
-				alert("Shots Fired", citizen, "LEO", nil)
+				alert("Shots Fired", citizen, Jurisdiction, nil)
 			end
 		elseif IsPedInMeleeCombat(GetPlayerPed(-1)) then 
-			alert("Civil Disturbance", citizen, "LEO", nil)
+			alert("Civil Disturbance", citizen, Jurisdiction, nil)
 		elseif IsPedJacking(GetPlayerPed(-1)) then
-			alert("Grand Theft Auto", citizen, "LEO", nil)
+			alert("Grand Theft Auto", citizen, Jurisdiction, nil)
 		elseif IsPedTryingToEnterALockedVehicle(GetPlayerPed(-1)) then
-			alert("Vehicle Theft", citizen, "LEO", nil)
+			alert("Vehicle Theft", citizen, Jurisdiction, nil)
 		elseif DoesVehicleHaveWeapons(GetVehiclePedIsUsing(GetPlayerPed(-1))) == 1 then
 			if not has_value(vehicleblacklist, GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(GetPlayerPed(-1))))) then
-				alert("Weaponized Vehicle", citizen, "LEO", nil)
+				alert("Weaponized Vehicle", citizen, Jurisdiction, nil)
 			end
 		end
 	end
@@ -424,7 +421,7 @@ function alert(event, sender, receiver, eventPos)
 	local s1, s2 = GetStreetNameAtCoord(eventPos.x, eventPos.y, eventPos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt())
 	local street1 = GetStreetNameFromHashKey(s1)
 	local street2 = GetStreetNameFromHashKey(s2)
-	local zone = zones[GetNameOfZone(eventPos.x, eventPos.y, eventPos.z)]
+	local zone = Config.Zones.All[GetNameOfZone(eventPos.x, eventPos.y, eventPos.z)]
 	local veh = GetVehiclePedIsUsing(ped)
 	local plate = GetVehicleNumberPlateText(veh)
 	local pColour, sColour = GetVehicleColours(veh)
@@ -437,24 +434,27 @@ function alert(event, sender, receiver, eventPos)
 	if zone == nil then
 		zone = "San Andreas"
 	end
+	if receiver == Jurisdiction then
+		receiver = Config.Zones.Jurisdiction[zone]
+	end
 	if IsPedMale(ped) then
 		sex = "male"
 	elseif not IsPedMale(ped) then
 		sex = "female"
 	end
-	if Config[event].Populated == false or has_value(popzones, zone) then
+	if Config.Events[event].Populated == false or has_value(Config.Zones.Populated, zone) then
 		if ownerCheck(event, plate) then
-			ac = (Config[event].Chance/Config.stealOwnChance)
+			ac = (Config.Events[event].Chance/Config.stealOwnChance)
 		else
-			ac = Config[event].Chance
+			ac = Config.Events[event].Chance
 		end
 		if alertChance(ac) then
-			if Config[event].Outlaw then
-				TriggerServerEvent('dd_outlawalerts:setOutlaw', Config[event].Colour)
+			if Config.Events[event].Outlaw then
+				TriggerServerEvent('dd_outlawalerts:setOutlaw', Config.Events[event].Colour)
 			end
 			TriggerEvent('dd_reportcrime:playsound', event, zone, sender, receiver)
-			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config[event].Bliptime, Config[event].Colour, eventPos.x, eventPos.y, eventPos.z)
-			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, street1, street2, vehName, sex, plate, pcname, scname)
+			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config.Events[event].Bliptime, Config.Events[event].Colour, eventPos.x, eventPos.y, eventPos.z)
+			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, receiver, street1, street2, vehName, sex, plate, pcname, scname)
 		end
 	end
 	TriggerEvent('dd_outlawalerts:waitLoop', event)
