@@ -394,17 +394,17 @@ Citizen.CreateThread(function()
         Wait(0)
 		if IsPedShooting(GetPlayerPed(-1)) then
 			if checkGun() then
-				alert("Shots Fired", citizen, Jurisdiction, nil)
+				alert("Shots Fired", "Citizen", Jurisdiction, nil)
 			end
 		elseif IsPedInMeleeCombat(GetPlayerPed(-1)) then 
-			alert("Civil Disturbance", citizen, Jurisdiction, nil)
+			alert("Civil Disturbance", "Citizen", Jurisdiction, nil)
 		elseif IsPedJacking(GetPlayerPed(-1)) then
-			alert("Grand Theft Auto", citizen, Jurisdiction, nil)
+			alert("Grand Theft Auto", "Citizen", Jurisdiction, nil)
 		elseif IsPedTryingToEnterALockedVehicle(GetPlayerPed(-1)) then
-			alert("Vehicle Theft", citizen, Jurisdiction, nil)
+			alert("Vehicle Theft", "Citizen", Jurisdiction, nil)
 		elseif DoesVehicleHaveWeapons(GetVehiclePedIsUsing(GetPlayerPed(-1))) == 1 then
 			if not has_value(vehicleblacklist, GetDisplayNameFromVehicleModel(GetEntityModel(GetVehiclePedIsUsing(GetPlayerPed(-1))))) then
-				alert("Weaponized Vehicle", citizen, Jurisdiction, nil)
+				alert("Weaponized Vehicle", "Citizen", Jurisdiction, nil)
 			end
 		end
 	end
@@ -452,9 +452,8 @@ function alert(event, sender, receiver, eventPos)
 			if Config.Events[event].Outlaw then
 				TriggerServerEvent('dd_outlawalerts:setOutlaw', Config.Events[event].Colour)
 			end
-			TriggerEvent('dd_reportcrime:playsound', event, zone, sender, receiver)
 			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config.Events[event].Bliptime, Config.Events[event].Colour, eventPos.x, eventPos.y, eventPos.z)
-			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, receiver, street1, street2, vehName, sex, plate, pcname, scname)
+			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, sender, receiver, street1, street2, vehName, sex, plate, pcname, scname)
 		end
 	end
 	TriggerEvent('dd_outlawalerts:waitLoop', event)

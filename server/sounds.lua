@@ -14,7 +14,8 @@ Sounds = {
         ["Land Act Dam"] = '/01_areas/0x1C528EF2',
         ["N.O.O.S.E"] = '/01_areas/0x1C528EF2',
         ["Tataviam Mountains"] = '/01_areas/0x1C528EF2',
-        ["Paleto Cove"] = '/01_areas/0x0184FB75'["Textile City"] = '/01_areas/0x01E8415E',
+        ["Paleto Cove"] = '/01_areas/0x0184FB75',
+        ["Textile City"] = '/01_areas/0x01E8415E',
         ["Galilee"] = '/01_areas/0x05390970',
         ["Tongva Valley"] = '/01_areas/0x023C5452',
         ["Ron Alternates Wind Farm"] = '/01_areas/0x028CCF7A',
@@ -104,9 +105,9 @@ Sounds = {
             '/01_conjunctives/IN_03',
             '/01_conjunctives/IN_04',
             '/01_conjunctives/IN_05'
-        }
+        },
         Wehave = {
-            Citizen = {
+            ["Citizen"] = {
                 '/01_we_have/0x0662DE99',
                 '/01_we_have/0x07F7F36D',
                 '/01_we_have/0x0ACF391D',
@@ -114,7 +115,7 @@ Sounds = {
                 '/01_we_have/0x1D1D5DBA',
                 '/01_we_have/0x1F72E264'
             },
-            Officer = {
+            ["Officer"] = {
                 '/01_we_have/0x03E3086B',
                 '/01_we_have/0x128465AD',
                 '/01_we_have/0x1628ACF6'
@@ -122,7 +123,7 @@ Sounds = {
         }
     },
     Events = {
-        "Shots Fired" = {
+        ["Shots Fired"] = {
             '/01_crime_shooting/CRIME_SHOOTING_01',
             '/01_crime_shooting/CRIME_SHOOTING_02',
             '/01_crime_shoot_out/CRIME_SHOOT_OUT_01',
@@ -131,25 +132,25 @@ Sounds = {
             '/01_crime_shots_fired/CRIME_SHOTS_FIRED_03',
             '/01_crime_firearm_discharged_in_a_public_place/CRIME_FIREARM_DISCHARGED_IN_A_PUBLIC_PLACE_01'
         },
-        "Civil Disturbance" = {
+        ["Civil Disturbance"] = {
             '/01_crime_civil_disturbance/CRIME_CIVIL_DISTURBANCE_01',
             '/01_crime_disturbance/CRIME_DISTURBANCE_01',
             '/01_crime_disturbance/CRIME_DISTURBANCE_02',
             '/01_crime_disturbance/CRIME_DISTURBANCE_03',
             '/01_crime_disturbance/CRIME_DISTURBANCE_04'
         },
-        "Grand Theft Auto" = {
+        ["Grand Theft Auto"] = {
             '/01_crime_car_jacking/CRIME_CAR_JACKING_01',
             '/01_crime_car_jacking/CRIME_CAR_JACKING_02',
             '/01_crime_grand_theft_auto/CRIME_GRAND_THEFT_AUTO_01'
         },
-        "Vehicle Theft" = {
+        ["Vehicle Theft"] = {
             '/01_crime_person_attempting_to_steal_a_car/CRIME_PERSON_ATTEMPTING_TO_STEAL_A_CAR_01',
             '/01_crime_person_stealing_a_car/CRIME_PERSON_STEALING_A_CAR_01',
             '/01_crime_stolen_vehicle/CRIME_STOLEN_VEHICLE_01',
             '/01_crime_vehicle_theft/CRIME_VEHICLE_THEFT_01'
         },
-        "Car Chopping" = {
+        ["Car Chopping"] = {
             '/01_crime_criminal_activity/CRIME_CRIMINAL_ACTIVITY_01',
             '/01_crime_criminal_activity/CRIME_CRIMINAL_ACTIVITY_02',
             '/01_crime_criminal_activity/CRIME_CRIMINAL_ACTIVITY_03',
@@ -157,17 +158,19 @@ Sounds = {
             '/01_crime_criminal_activity/CRIME_CRIMINAL_ACTIVITY_05',
             '/01_crime_criminal_activity/CRIME_CRIMINAL_ACTIVITY_06'
         },
-        "Drug Deal" = {
+        ["Drug Deal"] = {
             '/01_crime_drug_deal/CRIME_DRUG_DEAL_01',
             '/01_crime_drug_deal/CRIME_DRUG_DEAL_02',
             '/01_crime_drug_deal/CRIME_DRUG_DEAL_03',
             '/01_crime_drug_deal/CRIME_DRUG_DEAL_04',
             '/01_crime_narcotics_activity/CRIME_NARCOTICS_ACTIVITY_01'
         },
-        "Explosion" = {
+        ["Explosion"] = {
             '/01_crime_terrorist_activity/CRIME_TERRORIST_ACTIVITY_01',
             '/01_crime_terrorist_activity/CRIME_TERRORIST_ACTIVITY_02',
             '/01_crime_terrorist_activity/CRIME_TERRORIST_ACTIVITY_04'
         }
     }
 }
+
+Sounds.Volume = 1.0
