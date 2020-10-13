@@ -1,6 +1,7 @@
 ESX 					= nil
 local connectedPlayers 	= {}
 local notExpl 			= {3, 13, 20, 21, 22, 39}
+local playing 			= false
 
 local text = {
 	["Shots Fired"] = {"~r~Shots fired ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
@@ -99,7 +100,7 @@ function explosion(source, ev)
 end
 
 RegisterServerEvent('dd_outlawalerts:eventInProgress')
-AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, receiver, street1, street2, vehName, sex, plate, pcname, scname)
+AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender, receiver, street1, street2, vehName, sex, plate, pcname, scname)
 	local msg = {}
 	if street2 == "" then
 		atbetween = " ~w~at ~r~"
@@ -125,7 +126,27 @@ AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, receive
 		table.insert(msg, k, v)
 	end
 	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, receiver, msg[1]..msg[2]..msg[3]..msg[4]..msg[5]..msg[6]..msg[7]..msg[8])
+	playSound(event, zone, sender, receiver)
 end)
+
+function playSound(event, zone, sender, receiver)
+	if not playing then
+		playing = true
+		local sound = Sounds.Conjunctives.Wehave[sender][math.random(#Sounds.Conjunctives.Wehave[sender])]
+		TriggerEvent('InteractSound_SV:PlayForJob', sound, Sounds.Volume, receiver)
+		Wait(1500)
+		local sound = Sounds.Events[event][math.random(#Sounds.Events[event])]
+		TriggerEvent('InteractSound_SV:PlayForJob', sound, Sounds.Volume, receiver)
+		Wait(3000)
+		local sound = Sounds.Conjunctives.In[math.random(#Sounds.Conjunctives.In)]
+		TriggerEvent('InteractSound_SV:PlayForJob', sound, Sounds.Volume, receiver)
+		Wait(1500)
+		local sound = Sounds.Zones[zone]
+		TriggerEvent('InteractSound_SV:PlayForJob', sound, Sounds.Volume, receiver)
+		Wait(4000)
+		playing = false
+	end
+end
 
 RegisterServerEvent('dd_outlawalerts:setOutlaw')
 AddEventHandler('dd_outlawalerts:setOutlaw', function(blipColour)

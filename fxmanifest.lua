@@ -6,7 +6,8 @@ description "DokaDoka's Outlaw Alerts"
 
 server_scripts {
 	'@mysql-async/lib/MySQL.lua',
-	'server/main.lua'
+	'server/main.lua',
+	'server/sounds.lua'
 }
 
 client_scripts {
