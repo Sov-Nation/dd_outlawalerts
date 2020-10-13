@@ -94,12 +94,12 @@ function explosion(source, ev)
 			eventPos.y = ev.posY
 			eventPos.z = ev.posZ
 		end
-		TriggerClientEvent('dd_outlawalerts:triggerAlert', scapegoat, "Explosion", citizen, "LEO", eventPos)
+		TriggerClientEvent('dd_outlawalerts:triggerAlert', scapegoat, "Explosion", citizen, Jurisdiction, eventPos)
 	end
 end
 
 RegisterServerEvent('dd_outlawalerts:eventInProgress')
-AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, street1, street2, veh, sex)
+AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, receiver, street1, street2, vehName, sex, plate, pcname, scname)
 	local msg = {}
 	if street2 == "" then
 		atbetween = " ~w~at ~r~"
@@ -124,7 +124,7 @@ AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, street1
 		end
 		table.insert(msg, k, v)
 	end
-	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, msg[1]..msg[2]..msg[3]..msg[4]..msg[5]..msg[6]..msg[7]..msg[8])
+	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, receiver, msg[1]..msg[2]..msg[3]..msg[4]..msg[5]..msg[6]..msg[7]..msg[8])
 end)
 
 RegisterServerEvent('dd_outlawalerts:setOutlaw')
