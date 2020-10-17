@@ -20,9 +20,12 @@ AddEventHandler('explosionEvent', function(source, ev)
 end)
 
 ESX.RegisterServerCallback('dd_outlawalerts:getItemAmount', function(source, cb, item)
-	local xPlayer = ESX.GetPlayerFromId(source)
-	local quantity = xPlayer.getInventoryItem(item).count
-
+	if Config.UseItems then
+		local xPlayer = ESX.GetPlayerFromId(source)
+		quantity = xPlayer.getInventoryItem(item).count
+	else
+		quantity = 0
+	end
 	cb(quantity)
 end)
 
@@ -119,7 +122,9 @@ AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender,
 		end
 	end
 	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, receiver, message)
-	playSound(event, zone, sender, receiver)
+	if Config.AudioAlerts then
+		playSound(event, zone, sender, receiver)
+	end
 end)
 
 function playSound(event, zone, sender, receiver)

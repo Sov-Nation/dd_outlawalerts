@@ -639,3 +639,5 @@ Config = {
 }
 
 Config.StealOwnChance = 10 -- Chance to trigger an alert for trying to steal your own car, compounds with other probabilities
+Config.AudioAlerts = true -- Set to false to disable audio alerts, they won't work anyway without the correct version of interactsound
+Config.UseItems = true -- Set to false if you don't want the scanner item functionality
