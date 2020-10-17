@@ -87,11 +87,11 @@ function explosion(source, ev)
 end
 
 RegisterServerEvent('dd_outlawalerts:eventInProgress')
-AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender, receiver, street1, street2, vehName, sex, plate, pcname, scname)
-	local msg = {}
+AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender, receiver, street1, street2, veh, sex, plate, pcname, scname)
+	local message = nil
 	if street2 == "" then
 		atbetween = " ~w~at ~r~"
-		xand = ""
+		xand = nil
 	elseif street2 ~= "" then
 		atbetween = " ~w~between ~r~"
 		xand = " ~w~and ~r~"
@@ -110,9 +110,15 @@ AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender,
 		elseif v == "xand" then
 			v = xand
 		end
-		table.insert(msg, k, v)
+		if v ~= nil then
+			if message == nil then
+				message = v
+			else
+				message = (message..v)
+			end
+		end
 	end
-	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, receiver, msg[1]..msg[2]..msg[3]..msg[4]..msg[5]..msg[6]..msg[7]..msg[8])
+	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, receiver, message)
 	playSound(event, zone, sender, receiver)
 end)
 

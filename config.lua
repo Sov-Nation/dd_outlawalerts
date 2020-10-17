@@ -7,9 +7,7 @@ Config = {
                 "atbetween",
                 "street1",
                 "xand",
-                "street2",
-                "",
-                ""
+                "street2"
             },
             Colour = 1,
             Bliptime = 120,
@@ -27,9 +25,7 @@ Config = {
                 "atbetween",
                 "street1",
                 "xand",
-                "street2",
-                "",
-                ""
+                "street2"
             },
             Colour = 17,
             Bliptime = 60,
@@ -38,7 +34,7 @@ Config = {
             Chance = 20,
             Populated = true,
             Ownershipcheck = false,
-            Waittime = 15
+            Waittime = 5
         },
         ["Grand Theft Auto"] = {
             Text = {
@@ -58,7 +54,7 @@ Config = {
             Chance = 75,
             Populated = false,
             Ownershipcheck = true,
-            Waittime = 5
+            Waittime = 1
         },
         ["Vehicle Theft"] = {
             Text = {
@@ -78,7 +74,7 @@ Config = {
             Chance = 25,
             Populated = true,
             Ownershipcheck = true,
-            Waittime = 5
+            Waittime = 1
         },
         ["Weaponized Vehicle"] = {
             Text = {
@@ -87,15 +83,13 @@ Config = {
                 "atbetween",
                 "street1",
                 "xand",
-                "street2",
-                "",
-                ""
+                "street2"
             },
             Colour = 1,
             Bliptime = 60,
             Outlaw = false,
             Outlawtime = 60,
-            Chance = 5,
+            Chance = 10,
             Populated = true,
             Ownershipcheck = false,
             Waittime = 30
@@ -118,7 +112,7 @@ Config = {
             Chance = 60,
             Populated = false,
             Ownershipcheck = true,
-            Waittime = 5
+            Waittime = 1
         },
         ["Drug Deal"] = {
             Text = {
@@ -127,9 +121,7 @@ Config = {
                 "atbetween",
                 "street1",
                 "xand",
-                "street2",
-                "",
-                ""
+                "street2"
             },
             Colour = 7,
             Bliptime = 60,
@@ -138,7 +130,7 @@ Config = {
             Chance = 40,
             Populated = true,
             Ownershipcheck = false,
-            Waittime = 5
+            Waittime = 1
         },
         ["Bank Robbery"] = {
             Text = {
@@ -147,9 +139,7 @@ Config = {
                 "atbetween",
                 "street1",
                 "xand",
-                "street2",
-                "",
-                ""
+                "street2"
             },
             Colour = 8,
             Bliptime = 300,
@@ -158,7 +148,7 @@ Config = {
             Chance = 100,
             Populated = false,
             Ownershipcheck = false,
-            Waittime = 5
+            Waittime = 1
         },
         ["Shop Robbery"] = {
             Text = {
@@ -167,9 +157,7 @@ Config = {
                 "atbetween",
                 "street1",
                 "xand",
-                "street2",
-                "",
-                ""
+                "street2"
             },
             Colour = 8,
             Bliptime = 240,
@@ -178,7 +166,7 @@ Config = {
             Chance = 90,
             Populated = false,
             Ownershipcheck = false,
-            Waittime = 5
+            Waittime = 1
         },
         ["Explosion"] = {
             Text = {
@@ -186,10 +174,7 @@ Config = {
                 "atbetween",
                 "street1",
                 "xand",
-                "street2",
-                "",
-                "",
-                ""
+                "street2"
             },
             Colour = 1,
             Bliptime = 120,
