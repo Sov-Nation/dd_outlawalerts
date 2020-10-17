@@ -3,19 +3,6 @@ local connectedPlayers 	= {}
 local notExpl 			= {3, 13, 20, 21, 22, 39}
 local playing 			= false
 
-local text = {
-	["Shots Fired"] = {"~r~Shots fired ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Civil Disturbance"] = {"~r~Civil Disturbance ~w~involving a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Grand Theft Auto"] = {"~r~Grand Theft Auto ~w~of a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"},
-	["Vehicle Theft"] = {"Attempted ~r~theft ~w~of a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"},
-	["Weaponized Vehicle"] = {"Reports of a ~r~weaponized vehicle ~w~, a ~r~", "veh", "atbetween", "street1", "xand", "street2", "", ""},
-	["Car Chopping"] = {"Suspected ~r~car chopping ~w~by a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"},
-	["Drug Deal"] = {"Suspected ~r~drug deal ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Bank Robbery"] = {"~r~Bank Robbery ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Shop Robbery"] = {"~r~Shop Robbery ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Explosion"] = {"~r~Explosion ~w~reported ~r~", "atbetween", "street1", "xand", "street2", "", "", ""}
-}
-
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
@@ -33,9 +20,12 @@ AddEventHandler('explosionEvent', function(source, ev)
 end)
 
 ESX.RegisterServerCallback('dd_outlawalerts:getItemAmount', function(source, cb, item)
-	local xPlayer = ESX.GetPlayerFromId(source)
-	local quantity = xPlayer.getInventoryItem(item).count
-
+	if Config.UseItems then
+		local xPlayer = ESX.GetPlayerFromId(source)
+		quantity = xPlayer.getInventoryItem(item).count
+	else
+		quantity = 0
+	end
 	cb(quantity)
 end)
 
@@ -100,16 +90,16 @@ function explosion(source, ev)
 end
 
 RegisterServerEvent('dd_outlawalerts:eventInProgress')
-AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender, receiver, street1, street2, vehName, sex, plate, pcname, scname)
-	local msg = {}
+AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender, receiver, street1, street2, veh, sex, plate, pcname, scname)
+	local message = nil
 	if street2 == "" then
 		atbetween = " ~w~at ~r~"
-		xand = ""
+		xand = nil
 	elseif street2 ~= "" then
 		atbetween = " ~w~between ~r~"
 		xand = " ~w~and ~r~"
 	end
-	for k, v in pairs(text[event]) do
+	for k, v in pairs(Config.Events[event].Text) do
 		if v == "street1" then
 			v = street1
 		elseif v == "street2" then
@@ -123,10 +113,18 @@ AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender,
 		elseif v == "xand" then
 			v = xand
 		end
-		table.insert(msg, k, v)
+		if v ~= nil then
+			if message == nil then
+				message = v
+			else
+				message = (message..v)
+			end
+		end
 	end
-	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, receiver, msg[1]..msg[2]..msg[3]..msg[4]..msg[5]..msg[6]..msg[7]..msg[8])
-	playSound(event, zone, sender, receiver)
+	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, receiver, message)
+	if Config.AudioAlerts then
+		playSound(event, zone, sender, receiver)
+	end
 end)
 
 function playSound(event, zone, sender, receiver)
