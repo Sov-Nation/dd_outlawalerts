@@ -1,6 +1,16 @@
 Config = {
     Events = {
         ["Shots Fired"] = {
+            Text = {
+                "~r~Shots fired ~w~by a ~r~",
+                "sex",
+                "atbetween",
+                "street1",
+                "xand",
+                "street2",
+                "",
+                ""
+            },
             Colour = 1,
             Bliptime = 120,
             Outlaw = true,
@@ -11,6 +21,16 @@ Config = {
             Waittime = 5
         },
         ["Civil Disturbance"] = {
+            Text = {
+                "~r~Civil Disturbance ~w~involving a ~r~",
+                "sex",
+                "atbetween",
+                "street1",
+                "xand",
+                "street2",
+                "",
+                ""
+            },
             Colour = 17,
             Bliptime = 60,
             Outlaw = true,
@@ -21,6 +41,16 @@ Config = {
             Waittime = 15
         },
         ["Grand Theft Auto"] = {
+            Text = {
+                "~r~Grand Theft Auto ~w~of a ~r~",
+                "veh",
+                "~w~ by a ~r~",
+                "sex",
+                "atbetween",
+                "street1",
+                "xand",
+                "street2"
+            },
             Colour = 5,
             Bliptime = 60,
             Outlaw = true,
@@ -31,6 +61,16 @@ Config = {
             Waittime = 5
         },
         ["Vehicle Theft"] = {
+            Text = {
+                "Attempted ~r~theft ~w~of a ~r~",
+                "veh",
+                "~w~ by a ~r~",
+                "sex",
+                "atbetween",
+                "street1",
+                "xand",
+                "street2"
+            },
             Colour = 5,
             Bliptime = 60,
             Outlaw = true,
@@ -41,6 +81,16 @@ Config = {
             Waittime = 5
         },
         ["Weaponized Vehicle"] = {
+            Text = {
+                "Reports of a ~r~weaponized vehicle ~w~, a ~r~",
+                "veh",
+                "atbetween",
+                "street1",
+                "xand",
+                "street2",
+                "",
+                ""
+            },
             Colour = 1,
             Bliptime = 60,
             Outlaw = false,
@@ -51,6 +101,16 @@ Config = {
             Waittime = 30
         },
         ["Car Chopping"] = {
+            Text = {
+                "Suspected ~r~car chopping ~w~by a ~r~",
+                "veh",
+                "~w~ by a ~r~",
+                "sex",
+                "atbetween",
+                "street1",
+                "xand",
+                "street2"
+            },
             Colour = 5,
             Bliptime = 60,
             Outlaw = true,
@@ -61,6 +121,16 @@ Config = {
             Waittime = 5
         },
         ["Drug Deal"] = {
+            Text = {
+                "Suspected ~r~drug deal ~w~by a ~r~",
+                "sex",
+                "atbetween",
+                "street1",
+                "xand",
+                "street2",
+                "",
+                ""
+            },
             Colour = 7,
             Bliptime = 60,
             Outlaw = true,
@@ -71,6 +141,16 @@ Config = {
             Waittime = 5
         },
         ["Bank Robbery"] = {
+            Text = {
+                "~r~Bank Robbery ~w~by a ~r~",
+                "sex",
+                "atbetween",
+                "street1",
+                "xand",
+                "street2",
+                "",
+                ""
+            },
             Colour = 8,
             Bliptime = 300,
             Outlaw = true,
@@ -81,6 +161,16 @@ Config = {
             Waittime = 5
         },
         ["Shop Robbery"] = {
+            Text = {
+                "~r~Shop Robbery ~w~by a ~r~",
+                "sex",
+                "atbetween",
+                "street1",
+                "xand",
+                "street2",
+                "",
+                ""
+            },
             Colour = 8,
             Bliptime = 240,
             Outlaw = true,
@@ -91,6 +181,16 @@ Config = {
             Waittime = 5
         },
         ["Explosion"] = {
+            Text = {
+                "~r~Explosion ~w~reported ~r~",
+                "atbetween",
+                "street1",
+                "xand",
+                "street2",
+                "",
+                "",
+                ""
+            },
             Colour = 1,
             Bliptime = 120,
             Outlaw = false,

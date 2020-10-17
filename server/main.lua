@@ -3,19 +3,6 @@ local connectedPlayers 	= {}
 local notExpl 			= {3, 13, 20, 21, 22, 39}
 local playing 			= false
 
-local text = {
-	["Shots Fired"] = {"~r~Shots fired ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Civil Disturbance"] = {"~r~Civil Disturbance ~w~involving a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Grand Theft Auto"] = {"~r~Grand Theft Auto ~w~of a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"},
-	["Vehicle Theft"] = {"Attempted ~r~theft ~w~of a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"},
-	["Weaponized Vehicle"] = {"Reports of a ~r~weaponized vehicle ~w~, a ~r~", "veh", "atbetween", "street1", "xand", "street2", "", ""},
-	["Car Chopping"] = {"Suspected ~r~car chopping ~w~by a ~r~", "veh", "~w~ by a ~r~", "sex", "atbetween", "street1", "xand", "street2"},
-	["Drug Deal"] = {"Suspected ~r~drug deal ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Bank Robbery"] = {"~r~Bank Robbery ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Shop Robbery"] = {"~r~Shop Robbery ~w~by a ~r~", "sex", "atbetween", "street1", "xand", "street2", "", ""},
-	["Explosion"] = {"~r~Explosion ~w~reported ~r~", "atbetween", "street1", "xand", "street2", "", "", ""}
-}
-
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
@@ -109,7 +96,7 @@ AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender,
 		atbetween = " ~w~between ~r~"
 		xand = " ~w~and ~r~"
 	end
-	for k, v in pairs(text[event]) do
+	for k, v in pairs(Config.Events[event].Text) do
 		if v == "street1" then
 			v = street1
 		elseif v == "street2" then
