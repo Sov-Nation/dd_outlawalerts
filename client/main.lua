@@ -421,7 +421,7 @@ function alert(event, sender, receiver, eventPos)
 	local s1, s2 = GetStreetNameAtCoord(eventPos.x, eventPos.y, eventPos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt())
 	local street1 = GetStreetNameFromHashKey(s1)
 	local street2 = GetStreetNameFromHashKey(s2)
-	local zone = Config.Zones.All[GetNameOfZone(eventPos.x, eventPos.y, eventPos.z)]
+	local zone = Config.Zones.Keys[GetNameOfZone(eventPos.x, eventPos.y, eventPos.z)]
 	local veh = GetVehiclePedIsUsing(ped)
 	local plate = GetVehicleNumberPlateText(veh)
 	local pColour, sColour = GetVehicleColours(veh)
@@ -435,14 +435,14 @@ function alert(event, sender, receiver, eventPos)
 		zone = "San Andreas"
 	end
 	if receiver == Jurisdiction then
-		receiver = Config.Zones.Jurisdiction[zone]
+		receiver = Config.Zones[zone].Jurisdiction
 	end
 	if IsPedMale(ped) then
 		sex = "male"
 	elseif not IsPedMale(ped) then
 		sex = "female"
 	end
-	if Config.Events[event].Populated == false or has_value(Config.Zones.Populated, zone) then
+	if Config.Events[event].Populated == false or Config.Zones[zone].Populated then
 		if ownerCheck(event, plate) then
 			ac = (Config.Events[event].Chance/Config.stealOwnChance)
 		else
@@ -452,7 +452,7 @@ function alert(event, sender, receiver, eventPos)
 			if Config.Events[event].Outlaw then
 				TriggerServerEvent('dd_outlawalerts:setOutlaw', Config.Events[event].Colour)
 			end
-			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config.Events[event].Bliptime, Config.Events[event].Colour, eventPos.x, eventPos.y, eventPos.z)
+			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config.Events[event].BlipTime, Config.Events[event].Colour, eventPos.x, eventPos.y, eventPos.z)
 			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, sender, receiver, street1, street2, vehName, sex, plate, pcname, scname)
 		end
 	end
