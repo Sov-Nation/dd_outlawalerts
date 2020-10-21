@@ -9,14 +9,14 @@ Config = {
                 "xand",
                 "street2"
             },
-            Colour = 1,
-            BlipTime = 120,
-            Outlaw = true,
-            OutlawTime = 120,
-            Chance = 50,
-            Populated = true,
-            OwnershipCheck = false,
-            Waittime = 5
+            Colour = 1, --sets the colour of both the static blip and the outlaw blip
+            BlipTime = 120, --the time it takes for the static blip to fade away to nothing
+            Outlaw = true, --sets whether an outlaw blip will be created for this event
+            OutlawTime = 120, --the time it takes for the outlaw blip to fade away to nothing
+            Chance = 50, --percentage that the event will trigger an alert
+            Populated = true, --sets whether the event needs to take place in a populated zone in order to trigger an alert
+            OwnershipCheck = false, --sets whether the ownership of the vehicle is taken into account for the alert chance
+            Waittime = 5 --sets the minimum time between alerts for this event for each player
         },
         ["Civil Disturbance"] = {
             Text = {
