@@ -3,5 +3,5 @@ INSERT INTO `items` (name, label, weight) VALUES
 ;
 
 ALTER TABLE `users`
-    ADD COLUMN `outlaw` TINYINT(100) 0 DEFAULT 0
+    ADD COLUMN `outlaw` varchar(100) NULL DEFAULT NULL
 ;

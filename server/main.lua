@@ -147,11 +147,11 @@ function playSound(event, zone, sender, receiver)
 end
 
 RegisterServerEvent('dd_outlawalerts:setOutlaw')
-AddEventHandler('dd_outlawalerts:setOutlaw', function(blipColour)
+AddEventHandler('dd_outlawalerts:setOutlaw', function(event)
 	local identifier = GetPlayerIdentifier(source, 0)
-	MySQL.Async.execute('UPDATE users SET outlaw = @blipColour WHERE identifier = @identifier', {
+	MySQL.Async.execute('UPDATE users SET outlaw = @event WHERE identifier = @identifier', {
 		['@identifier'] = identifier,
-		['@blipColour'] = blipColour
+		['@event'] = event
 	})
 	Wait(1000)
 	TriggerEvent('dd_outlawalerts:getOutlaw', identifier)
@@ -162,12 +162,12 @@ AddEventHandler('dd_outlawalerts:getOutlaw', function(identifier)
 	MySQL.Async.fetchAll("SELECT identifier, outlaw FROM users WHERE identifier = @identifier", {
 		['@identifier'] = identifier
 	}, function(result)
-		blipColour = result[1].outlaw
-		if blipColour ~= 0 then
-			TriggerClientEvent('dd_outlawalerts:outlawBlip', -1, identifier, blipColour, connectedPlayers)
-			MySQL.Async.execute('UPDATE users SET outlaw = @blipColour WHERE identifier = @identifier', {
+		event = result[1].outlaw
+		if event ~= "NULL" then
+			TriggerClientEvent('dd_outlawalerts:outlawBlip', -1, identifier, event, connectedPlayers)
+			MySQL.Async.execute('UPDATE users SET outlaw = @event WHERE identifier = @identifier', {
 				['@identifier'] = identifier,
-				['@blipColour'] = 0
+				['@event'] = "NULL"
 			})
 		end
 	end)
