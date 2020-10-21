@@ -332,8 +332,8 @@ AddEventHandler('dd_outlawalerts:alertPlace', function(title, blipAlertTime, bli
 end)
 
 RegisterNetEvent('dd_outlawalerts:outlawBlip')
-AddEventHandler('dd_outlawalerts:outlawBlip', function(identifier, blipColour, connectedPlayers)
-	if PlayerData.job ~= nil and has_value(LEO, PlayerData.job.name) and blipColour ~= 0 then
+AddEventHandler('dd_outlawalerts:outlawBlip', function(identifier, event, connectedPlayers)
+	if PlayerData.job ~= nil and has_value(LEO, PlayerData.job.name) and event ~= "NULL" then
 		for k,v in pairs(connectedPlayers) do
 			if identifier == v then
 				ped = GetPlayerFromServerId(k)
@@ -345,7 +345,7 @@ AddEventHandler('dd_outlawalerts:outlawBlip', function(identifier, blipColour, c
 			local transO = 250
 			local blip = AddBlipForEntity(outped)
 			SetBlipSprite(blip, 270)
-			SetBlipColour(blip, blipColour)
+			SetBlipColour(blip, Config.Events[event].Colour)
 			SetBlipAlpha(blip, transO)
 			SetBlipAsShortRange(blip, 1)
 			
@@ -353,7 +353,7 @@ AddEventHandler('dd_outlawalerts:outlawBlip', function(identifier, blipColour, c
 			AddTextComponentSubstringPlayerName('Suspect')
 			EndTextCommandSetBlipName(blip)
 			while transO ~= 0 do
-				Wait(outlawTime * 4)
+				Wait(Config.Events[event].OutlawTime * 4)
 				transO = transO - 1
 				SetBlipAlpha(blip, transO)
 				if transO == 0 then
@@ -450,7 +450,7 @@ function alert(event, sender, receiver, eventPos)
 		end
 		if alertChance(ac) then
 			if Config.Events[event].Outlaw then
-				TriggerServerEvent('dd_outlawalerts:setOutlaw', Config.Events[event].Colour)
+				TriggerServerEvent('dd_outlawalerts:setOutlaw', event)
 			end
 			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config.Events[event].BlipTime, Config.Events[event].Colour, eventPos.x, eventPos.y, eventPos.z)
 			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, sender, receiver, street1, street2, vehName, sex, plate, pcname, scname)
