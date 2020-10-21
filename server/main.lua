@@ -90,7 +90,7 @@ function explosion(source, ev)
 end
 
 RegisterServerEvent('dd_outlawalerts:eventInProgress')
-AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender, receiver, street1, street2, veh, sex, plate, pcname, scname)
+AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender, receiver, eventPos, street1, street2, vehName, sex, plate, pcname, scname)
 	local message = nil
 	if street2 == "" then
 		atbetween = " ~w~at ~r~"
@@ -121,7 +121,7 @@ AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender,
 			end
 		end
 	end
-	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, receiver, message)
+	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, receiver, message, eventPos)
 	if Config.AudioAlerts then
 		playSound(event, zone, sender, receiver)
 	end
@@ -171,11 +171,6 @@ AddEventHandler('dd_outlawalerts:getOutlaw', function(identifier)
 			})
 		end
 	end)
-end)
-
-RegisterServerEvent('dd_outlawalerts:alertPos')
-AddEventHandler('dd_outlawalerts:alertPos', function(event, blipAlertTime, blipColour, ax, ay, az)
-	TriggerClientEvent('dd_outlawalerts:alertPlace', -1, event, blipAlertTime, blipColour, ax, ay, az )
 end)
 
 ESX.RegisterServerCallback('dd_outlawalerts:isVehicleOwner', function(source, cb, plate)

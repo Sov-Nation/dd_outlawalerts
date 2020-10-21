@@ -290,40 +290,41 @@ function alertChance(ac)
 end
 
 RegisterNetEvent('dd_outlawalerts:Notify')
-AddEventHandler('dd_outlawalerts:Notify', function(title, zone, receiver, msg)
+AddEventHandler('dd_outlawalerts:Notify', function(event, zone, receiver, msg, eventPos)
+	TriggerEvent('dd_outlawalerts:staticBlip', event, eventPos)
 	ESX.TriggerServerCallback('dd_outlawalerts:getItemAmount', function(quantity)
 		if PlayerData.job ~= nil then 
 			if quantity > 0 then
-				ESX.ShowAdvancedNotification(title, zone, msg, 'CHAR_CALL911', 7)
+				ESX.ShowAdvancedNotification(event, zone, msg, 'CHAR_CALL911', 7)
 			elseif PlayerData.job.name == receiver then
-				ESX.ShowAdvancedNotification(title, zone, msg, 'CHAR_CALL911', 7)
+				ESX.ShowAdvancedNotification(event, zone, msg, 'CHAR_CALL911', 7)
 			elseif receiver == "LEO" and has_value(LEO, PlayerData.job.name) then
-				ESX.ShowAdvancedNotification(title, zone, msg, 'CHAR_CALL911', 7)
+				ESX.ShowAdvancedNotification(event, zone, msg, 'CHAR_CALL911', 7)
 			end
 		end
 	end, 'scanner')
 end)
 
-RegisterNetEvent('dd_outlawalerts:alertPlace')
-AddEventHandler('dd_outlawalerts:alertPlace', function(title, blipAlertTime, blipColour, ax, ay, az)
+RegisterNetEvent('dd_outlawalerts:staticBlip')
+AddEventHandler('dd_outlawalerts:staticBlip', function(event, eventPos)
 	if PlayerData.job ~= nil then
 		if has_value(LEO, PlayerData.job.name) then
 			local trans = 250
-			local alertBlip = AddBlipForCoord(ax, ay, az)
-			SetBlipSprite(alertBlip, 1)
-			SetBlipColour(alertBlip, blipColour)
-			SetBlipAlpha(alertBlip, trans)
-			SetBlipAsShortRange(alertBlip, 0)
+			local staticBlip = AddBlipForCoord(eventPos.x, eventPos.y, eventPos.z)
+			SetBlipSprite(staticBlip, 1)
+			SetBlipColour(staticBlip, Config.Events[event].Colour)
+			SetBlipAlpha(staticBlip, trans)
+			SetBlipAsShortRange(staticBlip, 0)
 
 			BeginTextCommandSetBlipName('STRING')
 			AddTextComponentSubstringPlayerName(title)
-			EndTextCommandSetBlipName(alertBlip)
+			EndTextCommandSetBlipName(staticBlip)
 			while trans ~= 0 do
-				Wait(blipAlertTime * 4)
+				Wait(Config.Events[event].BlipTime * 4)
 				trans = trans - 1
-				SetBlipAlpha(alertBlip,  trans)
+				SetBlipAlpha(staticBlip,  trans)
 				if trans == 0 then
-					SetBlipSprite(alertBlip, 2)
+					SetBlipSprite(staticBlip, 2)
 					return 
 				end
 			end
@@ -452,8 +453,7 @@ function alert(event, sender, receiver, eventPos)
 			if Config.Events[event].Outlaw then
 				TriggerServerEvent('dd_outlawalerts:setOutlaw', event)
 			end
-			TriggerServerEvent('dd_outlawalerts:alertPos', event, Config.Events[event].BlipTime, Config.Events[event].Colour, eventPos.x, eventPos.y, eventPos.z)
-			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, sender, receiver, street1, street2, vehName, sex, plate, pcname, scname)
+			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, sender, receiver, eventPos, street1, street2, vehName, sex, plate, pcname, scname)
 		end
 	end
 	TriggerEvent('dd_outlawalerts:waitLoop', event)
