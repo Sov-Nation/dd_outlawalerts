@@ -429,9 +429,6 @@ function alert(event, sender, receiver, eventPos)
 	local pcname, scname = colourNames[tostring(pColour)], colourNames[tostring(sColour)]
 	local display = GetDisplayNameFromVehicleModel(GetEntityModel(veh))
 	local vehName = GetLabelText(display)
-	if vehName == "NULL" then
-		vehName = "vehicle"
-	end
 	if zone == nil then
 		zone = "San Andreas"
 	end
@@ -439,9 +436,9 @@ function alert(event, sender, receiver, eventPos)
 		receiver = Config.Zones[zone].Jurisdiction
 	end
 	if IsPedMale(ped) then
-		sex = "male"
+		sex = "Male"
 	elseif not IsPedMale(ped) then
-		sex = "female"
+		sex = "Female"
 	end
 	if Config.Events[event].Populated == false or Config.Zones[zone].Populated then
 		if ownerCheck(event, plate) then
@@ -453,7 +450,7 @@ function alert(event, sender, receiver, eventPos)
 			if Config.Events[event].Outlaw then
 				TriggerServerEvent('dd_outlawalerts:setOutlaw', event)
 			end
-			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, sender, receiver, eventPos, street1, street2, vehName, sex, plate, pcname, scname)
+			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, sender, receiver, eventPos, street1, street2, sex, vehName, plate, pcname, scname)
 		end
 	end
 	TriggerEvent('dd_outlawalerts:waitLoop', event)

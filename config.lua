@@ -4,9 +4,12 @@ Config = {
             Text = {
                 "~r~Shots fired ~w~by a ~r~",
                 "sex",
-                "atbetween",
+                "preveh",
+                "pcname",
+                "scname",
+                "vehName",
+                "plate",
                 "street1",
-                "xand",
                 "street2"
             },
             Colour = 1, --sets the colour of both the static blip and the outlaw blip
@@ -22,9 +25,7 @@ Config = {
             Text = {
                 "~r~Civil Disturbance ~w~involving a ~r~",
                 "sex",
-                "atbetween",
                 "street1",
-                "xand",
                 "street2"
             },
             Colour = 17,
@@ -39,12 +40,13 @@ Config = {
         ["Grand Theft Auto"] = {
             Text = {
                 "~r~Grand Theft Auto ~w~of a ~r~",
-                "veh",
+                "pcname",
+                "scname",
+                "vehName",
+                "plate",
                 "~w~ by a ~r~",
                 "sex",
-                "atbetween",
                 "street1",
-                "xand",
                 "street2"
             },
             Colour = 5,
@@ -58,13 +60,14 @@ Config = {
         },
         ["Vehicle Theft"] = {
             Text = {
-                "Attempted ~r~theft ~w~of a ~r~",
-                "veh",
+                "~r~Attempted Theft ~w~of a ~r~",
+                "pcname",
+                "scname",
+                "vehName",
+                "plate",
                 "~w~ by a ~r~",
                 "sex",
-                "atbetween",
                 "street1",
-                "xand",
                 "street2"
             },
             Colour = 5,
@@ -78,11 +81,12 @@ Config = {
         },
         ["Weaponized Vehicle"] = {
             Text = {
-                "Reports of a ~r~weaponized vehicle ~w~, a ~r~",
-                "veh",
-                "atbetween",
+                "Reports of a ~r~Weaponized Vehicle ~w~, a ~r~",
+                "pcname",
+                "scname",
+                "vehName",
+                "plate",
                 "street1",
-                "xand",
                 "street2"
             },
             Colour = 1,
@@ -96,13 +100,13 @@ Config = {
         },
         ["Car Chopping"] = {
             Text = {
-                "Suspected ~r~car chopping ~w~by a ~r~",
-                "veh",
+                "Suspected ~r~Car chopping ~w~of a ~r~",
+                "pcname",
+                "scname",
+                "vehName",
                 "~w~ by a ~r~",
                 "sex",
-                "atbetween",
                 "street1",
-                "xand",
                 "street2"
             },
             Colour = 5,
@@ -116,11 +120,9 @@ Config = {
         },
         ["Drug Deal"] = {
             Text = {
-                "Suspected ~r~drug deal ~w~by a ~r~",
+                "Suspected ~r~Drug Deal ~w~by a ~r~",
                 "sex",
-                "atbetween",
                 "street1",
-                "xand",
                 "street2"
             },
             Colour = 7,
@@ -136,9 +138,7 @@ Config = {
             Text = {
                 "~r~Bank Robbery ~w~by a ~r~",
                 "sex",
-                "atbetween",
                 "street1",
-                "xand",
                 "street2"
             },
             Colour = 8,
@@ -154,9 +154,7 @@ Config = {
             Text = {
                 "~r~Shop Robbery ~w~by a ~r~",
                 "sex",
-                "atbetween",
                 "street1",
-                "xand",
                 "street2"
             },
             Colour = 8,
@@ -170,10 +168,8 @@ Config = {
         },
         ["Explosion"] = {
             Text = {
-                "~r~Explosion ~w~reported ~r~",
-                "atbetween",
+                "~r~Explosion ~w~reported~r~",
                 "street1",
-                "xand",
                 "street2"
             },
             Colour = 1,
@@ -638,6 +634,12 @@ Config = {
     }
 }
 
+-- Settings
 Config.StealOwnChance = 10 -- Chance to trigger an alert for trying to steal your own car, compounds with other probabilities
 Config.AudioAlerts = true -- Set to false to disable audio alerts, they won't work anyway without the correct version of interactsound
 Config.UseItems = true -- Set to false if you don't want the scanner item functionality
+
+-- Extra Details
+Config.vehName = 50
+Config.Colours = 75
+Config.plate = 10
