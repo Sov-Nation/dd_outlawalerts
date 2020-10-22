@@ -110,7 +110,7 @@ Config = {
         ["Weaponized Vehicle"] = {
             Text = {
                 ["Citizen"] = {
-                    "Reports of a ~r~Weaponized Vehicle ~w~, a ~r~",
+                    "Reports of a ~r~Weaponized Vehicle~w~, a ~r~",
                     "pcname",
                     "scname",
                     "vehName",
