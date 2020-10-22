@@ -84,7 +84,7 @@ local weaponwhitelist = {
 }
 
 local vehicleblacklist = {
-	"FIRETRUK", "RIOT2", "POLMAV"
+	"FIRETRUK", "RIOT2", "POLMAV", "PREDATOR"
 }
 
 local colourNames = {
@@ -289,6 +289,45 @@ function alertChance(ac)
 	return false
 end
 
+RegisterNetEvent('dd_outlawalerts:OpenAlertMenu')
+AddEventHandler('dd_outlawalerts:OpenAlertMenu', function()
+	ESX.UI.Menu.CloseAll()
+
+	ESX.UI.Menu.Open('default', GetCurrentResourceName(), 'alert_menu',
+    {
+		title    = "Alert Menu",
+		align    = 'top-left',
+		elements = {
+			{label = "Pursuit", value = "Pursuit"},
+			{label = "Shots Fired", value = "Shots Fired"},
+			{label = "Civil Disturbance", value = "Civil Disturbance"},
+			{label = "Grand Theft Auto", value = "Grand Theft Auto"},
+			{label = "Vehicle Theft", value = "Vehicle Theft"},
+			{label = "Weaponized Vehicle", value = "Weaponized Vehicle"},
+			{label = "Car Chopping", value = "Car Chopping"},
+			{label = "Drug Deal", value = "Drug Deal"},
+			{label = "Bank Robbery", value = "Bank Robbery"},
+			{label = "Shop Robbery", value = "Shop Robbery"},
+		}
+	}, function(data, menu)
+	
+	local target, distance = ESX.Game.GetClosestPlayer()
+	local targetid = GetPlayerServerId(target)
+	local xPlayer = PlayerPedId()
+	local playerheading = GetEntityHeading(GetPlayerPed(-1))
+	local playerlocation = GetEntityForwardVector(PlayerPedId())
+	local playerCoords = GetEntityCoords(GetPlayerPed(-1))
+	
+	if data.current.value == "Pursuit" then
+		
+	elseif data.current.value ~= nil then
+		alert(data.current.value, "Officer", Jurisdiction, nil)
+	end
+	end, function(data, menu)
+		menu.close()
+	end)
+end)
+
 RegisterNetEvent('dd_outlawalerts:Notify')
 AddEventHandler('dd_outlawalerts:Notify', function(event, zone, receiver, msg, eventPos)
 	TriggerEvent('dd_outlawalerts:staticBlip', event, eventPos)
@@ -424,6 +463,7 @@ function alert(event, sender, receiver, eventPos)
 	local street2 = GetStreetNameFromHashKey(s2)
 	local zone = Config.Zones.Keys[GetNameOfZone(eventPos.x, eventPos.y, eventPos.z)]
 	local veh = GetVehiclePedIsUsing(ped)
+	local class = GetVehicleClass(veh)
 	local plate = GetVehicleNumberPlateText(veh)
 	local pColour, sColour = GetVehicleColours(veh)
 	local pcname, scname = colourNames[tostring(pColour)], colourNames[tostring(sColour)]
@@ -440,17 +480,17 @@ function alert(event, sender, receiver, eventPos)
 	elseif not IsPedMale(ped) then
 		sex = "Female"
 	end
-	if Config.Events[event].Populated == false or Config.Zones[zone].Populated then
+	if Config.Events[event].Populated == false or Config.Zones[zone].Populated or sender == "Officer" then
 		if ownerCheck(event, plate) then
 			ac = (Config.Events[event].Chance/Config.stealOwnChance)
 		else
 			ac = Config.Events[event].Chance
 		end
-		if alertChance(ac) then
-			if Config.Events[event].Outlaw then
+		if alertChance(ac) or sender == "Officer" then
+			if Config.Events[event].Outlaw and sender ~= "Officer" then
 				TriggerServerEvent('dd_outlawalerts:setOutlaw', event)
 			end
-			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, sender, receiver, eventPos, street1, street2, sex, vehName, plate, pcname, scname)
+			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, sender, receiver, eventPos, street1, street2, sex, vehName, plate, pcname, scname, class)
 		end
 	end
 	TriggerEvent('dd_outlawalerts:waitLoop', event)
