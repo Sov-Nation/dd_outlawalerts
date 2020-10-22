@@ -121,11 +121,11 @@ AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender,
 			vehName = "vehicle"
 			plate = nil
 		else
-			if not alertChance(Config.plate) then
+			if not alertChance(Config.Plate) then
 				plate = nil
 			end
 		end
-		if not alertChance(Config.colours) then
+		if not alertChance(Config.Colours) then
 			pcname = nil
 			scname = nil
 		end

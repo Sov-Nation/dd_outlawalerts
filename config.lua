@@ -642,4 +642,4 @@ Config.UseItems = true -- Set to false if you don't want the scanner item functi
 -- Extra Details
 Config.vehName = 50
 Config.Colours = 75
-Config.plate = 10
+Config.Plate = 10
