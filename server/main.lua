@@ -191,7 +191,7 @@ AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender,
 		end
 	end
 	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, receiver, message, eventPos)
-	if Config.AudioAlerts then
+	if Sounds.Events[event] ~= nil and Config.AudioAlerts then
 		playSound(event, zone, sender, receiver)
 	end
 end)
