@@ -2,15 +2,22 @@ Config = {
     Events = {
         ["Shots Fired"] = {
             Text = {
-                "~r~Shots fired ~w~by a ~r~",
-                "sex",
-                "preveh",
-                "pcname",
-                "scname",
-                "vehName",
-                "plate",
-                "street1",
-                "street2"
+                ["Citizen"] = {
+                    "~r~Shots fired ~w~by a ~r~",
+                    "sex",
+                    "preveh",
+                    "pcname",
+                    "scname",
+                    "vehName",
+                    "plate",
+                    "street1",
+                    "street2" 
+                },
+                ["Officer"] = {
+                    "~r~Shots fired",
+                    "street1",
+                    "street2" 
+                }
             },
             Colour = 1, --sets the colour of both the static blip and the outlaw blip
             BlipTime = 120, --the time it takes for the static blip to fade away to nothing
@@ -23,10 +30,17 @@ Config = {
         },
         ["Civil Disturbance"] = {
             Text = {
-                "~r~Civil Disturbance ~w~involving a ~r~",
-                "sex",
-                "street1",
-                "street2"
+                ["Citizen"] = {
+                    "~r~Civil Disturbance ~w~involving a ~r~",
+                    "sex",
+                    "street1",
+                    "street2"
+                },
+                ["Officer"] = {
+                    "~r~Civil Disturbance",
+                    "street1",
+                    "street2"
+                }
             },
             Colour = 17,
             BlipTime = 60,
@@ -39,15 +53,22 @@ Config = {
         },
         ["Grand Theft Auto"] = {
             Text = {
-                "~r~Grand Theft Auto ~w~of a ~r~",
-                "pcname",
-                "scname",
-                "vehName",
-                "plate",
-                "~w~ by a ~r~",
-                "sex",
-                "street1",
-                "street2"
+                ["Citizen"] = {
+                    "~r~Grand Theft Auto ~w~of a ~r~",
+                    "pcname",
+                    "scname",
+                    "vehName",
+                    "plate",
+                    "~w~ by a ~r~",
+                    "sex",
+                    "street1",
+                    "street2"
+                },
+                ["Officer"] = {
+                    "~r~Grand Theft Auto",
+                    "street1",
+                    "street2"
+                }
             },
             Colour = 5,
             BlipTime = 60,
@@ -60,15 +81,22 @@ Config = {
         },
         ["Vehicle Theft"] = {
             Text = {
-                "~r~Attempted Theft ~w~of a ~r~",
-                "pcname",
-                "scname",
-                "vehName",
-                "plate",
-                "~w~ by a ~r~",
-                "sex",
-                "street1",
-                "street2"
+                ["Citizen"] = {
+                    "~r~Attempted Theft ~w~of a ~r~",
+                    "pcname",
+                    "scname",
+                    "vehName",
+                    "plate",
+                    "~w~ by a ~r~",
+                    "sex",
+                    "street1",
+                    "street2"
+                },
+                ["Officer"] = {
+                    "~r~Attempted Theft",
+                    "street1",
+                    "street2"
+                }
             },
             Colour = 5,
             BlipTime = 60,
@@ -81,13 +109,20 @@ Config = {
         },
         ["Weaponized Vehicle"] = {
             Text = {
-                "Reports of a ~r~Weaponized Vehicle ~w~, a ~r~",
-                "pcname",
-                "scname",
-                "vehName",
-                "plate",
-                "street1",
-                "street2"
+                ["Citizen"] = {
+                    "Reports of a ~r~Weaponized Vehicle ~w~, a ~r~",
+                    "pcname",
+                    "scname",
+                    "vehName",
+                    "plate",
+                    "street1",
+                    "street2"
+                },
+                ["Officer"] = {
+                    "~r~Weaponized Vehicle",
+                    "street1",
+                    "street2"
+                }
             },
             Colour = 1,
             BlipTime = 60,
@@ -100,14 +135,21 @@ Config = {
         },
         ["Car Chopping"] = {
             Text = {
-                "Suspected ~r~Car chopping ~w~of a ~r~",
-                "pcname",
-                "scname",
-                "vehName",
-                "~w~ by a ~r~",
-                "sex",
-                "street1",
-                "street2"
+                ["Citizen"] = {
+                    "Suspected ~r~Car Chopping ~w~of a ~r~",
+                    "pcname",
+                    "scname",
+                    "vehName",
+                    "~w~ by a ~r~",
+                    "sex",
+                    "street1",
+                    "street2"
+                },
+                ["Officer"] = {
+                    "~r~Car Chopping",
+                    "street1",
+                    "street2"
+                }
             },
             Colour = 5,
             BlipTime = 60,
@@ -120,10 +162,17 @@ Config = {
         },
         ["Drug Deal"] = {
             Text = {
-                "Suspected ~r~Drug Deal ~w~by a ~r~",
-                "sex",
-                "street1",
-                "street2"
+                ["Citizen"] = {
+                    "Suspected ~r~Drug Deal ~w~by a ~r~",
+                    "sex",
+                    "street1",
+                    "street2"
+                },
+                ["Officer"] = {
+                    "~r~Drug Deal",
+                    "street1",
+                    "street2"
+                }
             },
             Colour = 7,
             BlipTime = 60,
@@ -136,10 +185,17 @@ Config = {
         },
         ["Bank Robbery"] = {
             Text = {
-                "~r~Bank Robbery ~w~by a ~r~",
-                "sex",
-                "street1",
-                "street2"
+                ["Citizen"] = {
+                    "~r~Bank Robbery ~w~by a ~r~",
+                    "sex",
+                    "street1",
+                    "street2"
+                },
+                ["Officer"] = {
+                    "~r~Bank Robbery",
+                    "street1",
+                    "street2"
+                }
             },
             Colour = 8,
             BlipTime = 300,
@@ -152,10 +208,17 @@ Config = {
         },
         ["Shop Robbery"] = {
             Text = {
-                "~r~Shop Robbery ~w~by a ~r~",
-                "sex",
-                "street1",
-                "street2"
+                ["Citizen"] = {
+                    "~r~Shop Robbery ~w~by a ~r~",
+                    "sex",
+                    "street1",
+                    "street2"
+                },
+                ["Officer"] = {
+                    "~r~Shop Robbery",
+                    "street1",
+                    "street2"
+                }
             },
             Colour = 8,
             BlipTime = 240,
@@ -168,9 +231,16 @@ Config = {
         },
         ["Explosion"] = {
             Text = {
-                "~r~Explosion ~w~reported~r~",
-                "street1",
-                "street2"
+                ["Citizen"] = {
+                    "~r~Explosion ~w~reported~r~",
+                    "street1",
+                    "street2"
+                },
+                ["Officer"] = {
+                    "~r~Explosion ~w~reported~r~",
+                    "street1",
+                    "street2"
+                }
             },
             Colour = 1,
             BlipTime = 120,

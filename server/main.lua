@@ -139,7 +139,7 @@ AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender,
 		street2 = " ~w~and ~r~"..street2
 	end
 	
-	for k, v in pairs(Config.Events[event].Text) do
+	for k, v in pairs(Config.Events[event].Text[sender]) do
 		if v == "sex" then
 			v = sex
 		elseif v == "preveh" then
