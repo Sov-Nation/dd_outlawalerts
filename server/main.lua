@@ -89,29 +89,73 @@ function explosion(source, ev)
 	end
 end
 
-RegisterServerEvent('dd_outlawalerts:eventInProgress')
-AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender, receiver, street1, street2, veh, sex, plate, pcname, scname)
-	local message = nil
-	if street2 == "" then
-		atbetween = " ~w~at ~r~"
-		xand = nil
-	elseif street2 ~= "" then
-		atbetween = " ~w~between ~r~"
-		xand = " ~w~and ~r~"
+function alertChance(ac)
+	local dr = math.random(1, 100)
+    if(dr <= ac)then
+		return true
 	end
+	return false
+end
+
+RegisterServerEvent('dd_outlawalerts:eventInProgress')
+AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender, receiver, eventPos, street1, street2, sex, vehName, plate, pcname, scname)
+	local message = nil
+	
+	if vehName == "NULL" then
+		preveh = nil
+		pcname = nil
+		scname = nil
+		vehName = nil
+		plate = nil
+	else
+		preveh = "~w~ from a ~r~"
+		if pcname == scname then
+			scname = nil
+			pcname = pcname.." "
+		else
+			scname = "~w~ and ~r~"..scname.." "
+		end
+		plate = "~w~ with the plate ~y~"..plate
+		
+		if not alertChance(Config.vehName) then
+			vehName = "vehicle"
+			plate = nil
+		else
+			if not alertChance(Config.plate) then
+				plate = nil
+			end
+		end
+		if not alertChance(Config.colours) then
+			pcname = nil
+			scname = nil
+		end
+	end
+	
+	if street2 == "" then
+		street1 = " ~w~at ~r~"..street1
+		street2 = nil
+	else
+		street1 = " ~w~between ~r~"..street1
+		street2 = " ~w~and ~r~"..street2
+	end
+	
 	for k, v in pairs(Config.Events[event].Text) do
-		if v == "street1" then
+		if v == "sex" then
+			v = sex
+		elseif v == "preveh" then
+			v = preveh
+		elseif v == "pcname" then
+			v = pcname
+		elseif v == "scname" then
+			v = scname
+		elseif v == "vehName" then
+			v = vehName
+		elseif v == "plate" then
+			v = plate
+		elseif v == "street1" then
 			v = street1
 		elseif v == "street2" then
 			v = street2
-		elseif v == "sex" then
-			v = sex
-		elseif v == "veh" then
-			v = veh
-		elseif v == "atbetween" then
-			v = atbetween
-		elseif v == "xand" then
-			v = xand
 		end
 		if v ~= nil then
 			if message == nil then
@@ -121,7 +165,7 @@ AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender,
 			end
 		end
 	end
-	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, receiver, message)
+	TriggerClientEvent("dd_outlawalerts:Notify", -1, event, zone, receiver, message, eventPos)
 	if Config.AudioAlerts then
 		playSound(event, zone, sender, receiver)
 	end
@@ -171,11 +215,6 @@ AddEventHandler('dd_outlawalerts:getOutlaw', function(identifier)
 			})
 		end
 	end)
-end)
-
-RegisterServerEvent('dd_outlawalerts:alertPos')
-AddEventHandler('dd_outlawalerts:alertPos', function(event, blipAlertTime, blipColour, ax, ay, az)
-	TriggerClientEvent('dd_outlawalerts:alertPlace', -1, event, blipAlertTime, blipColour, ax, ay, az )
 end)
 
 ESX.RegisterServerCallback('dd_outlawalerts:isVehicleOwner', function(source, cb, plate)
