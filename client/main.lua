@@ -463,6 +463,7 @@ function alert(event, sender, receiver, eventPos)
 	local street2 = GetStreetNameFromHashKey(s2)
 	local zone = Config.Zones.Keys[GetNameOfZone(eventPos.x, eventPos.y, eventPos.z)]
 	local veh = GetVehiclePedIsUsing(ped)
+	local class = GetVehicleClass(veh)
 	local plate = GetVehicleNumberPlateText(veh)
 	local pColour, sColour = GetVehicleColours(veh)
 	local pcname, scname = colourNames[tostring(pColour)], colourNames[tostring(sColour)]
@@ -489,7 +490,7 @@ function alert(event, sender, receiver, eventPos)
 			if Config.Events[event].Outlaw and sender ~= "Officer" then
 				TriggerServerEvent('dd_outlawalerts:setOutlaw', event)
 			end
-			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, sender, receiver, eventPos, street1, street2, sex, vehName, plate, pcname, scname)
+			TriggerServerEvent('dd_outlawalerts:eventInProgress', event, zone, sender, receiver, eventPos, street1, street2, sex, vehName, plate, pcname, scname, class)
 		end
 	end
 	TriggerEvent('dd_outlawalerts:waitLoop', event)

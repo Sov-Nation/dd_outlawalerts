@@ -3,6 +3,31 @@ local connectedPlayers 	= {}
 local notExpl 			= {3, 13, 20, 21, 22, 39}
 local playing 			= false
 
+local Classes = {
+	[0] = "Compact Vehicle",
+	[1] = "Sedan",
+	[2] = "Sports Utility Vehicle",
+	[3] = "Coupe",
+	[4] = "Muscle Car",
+	[5] = "Sports Classic",
+	[6] = "Sports Car",
+	[7] = "Super Car",
+	[8] = "Motorcycle",
+	[9] = "Off-road Vehicle",
+	[10] = "Industrial Vehicle",
+	[11] = "Utility Vehicle",
+	[12] = "Van",
+	[13] = "Bicycle",
+	[14] = "Boat",
+	[15] = "Helicopter",
+	[16] = "Plane",
+	[17] = "Service Vehicle",
+	[18] = "Emergency Vehicle",
+	[19] = "Military Vehicle",
+	[20] = "Commercial Vehicle",
+	[21] = "Train"
+}
+
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 AddEventHandler('esx:playerLoaded', function(playerId, xPlayer)
@@ -98,7 +123,7 @@ function alertChance(ac)
 end
 
 RegisterServerEvent('dd_outlawalerts:eventInProgress')
-AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender, receiver, eventPos, street1, street2, sex, vehName, plate, pcname, scname)
+AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender, receiver, eventPos, street1, street2, sex, vehName, plate, pcname, scname, class)
 	local message = nil
 	
 	if vehName == "NULL" then
@@ -118,14 +143,14 @@ AddEventHandler('dd_outlawalerts:eventInProgress', function(event, zone, sender,
 		plate = "~w~ with the plate ~y~"..plate
 		
 		if not alertChance(Config.vehName) then
-			vehName = "vehicle"
+			vehName = Classes[class]
 			plate = nil
 		else
-			if not alertChance(Config.plate) then
+			if not alertChance(Config.Plate) then
 				plate = nil
 			end
 		end
-		if not alertChance(Config.colours) then
+		if not alertChance(Config.Colours) then
 			pcname = nil
 			scname = nil
 		end
