@@ -84,7 +84,7 @@ local weaponwhitelist = {
 }
 
 local vehicleblacklist = {
-	"FIRETRUK", "RIOT2", "POLMAV"
+	"FIRETRUK", "RIOT2", "POLMAV", "PREDATOR"
 }
 
 local colourNames = {
@@ -318,7 +318,7 @@ AddEventHandler('dd_outlawalerts:OpenAlertMenu', function()
 	local playerlocation = GetEntityForwardVector(PlayerPedId())
 	local playerCoords = GetEntityCoords(GetPlayerPed(-1))
 	
-	if data.current.value == "pursuit" then
+	if data.current.value == "Pursuit" then
 		
 	elseif data.current.value ~= nil then
 		alert(data.current.value, "Officer", Jurisdiction, nil)

@@ -110,7 +110,7 @@ function explosion(source, ev)
 			eventPos.y = ev.posY
 			eventPos.z = ev.posZ
 		end
-		TriggerClientEvent('dd_outlawalerts:triggerAlert', scapegoat, "Explosion", citizen, Jurisdiction, eventPos)
+		TriggerClientEvent('dd_outlawalerts:triggerAlert', scapegoat, "Explosion", "Citizen", Jurisdiction, eventPos)
 	end
 end
 
