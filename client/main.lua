@@ -356,7 +356,7 @@ AddEventHandler('dd_outlawalerts:staticBlip', function(event, eventPos)
 			SetBlipAsShortRange(staticBlip, 0)
 
 			BeginTextCommandSetBlipName('STRING')
-			AddTextComponentSubstringPlayerName(title)
+			AddTextComponentSubstringPlayerName(event)
 			EndTextCommandSetBlipName(staticBlip)
 			while trans ~= 0 do
 				Wait(Config.Events[event].BlipTime * 4)
