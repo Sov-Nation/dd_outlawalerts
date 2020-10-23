@@ -356,7 +356,7 @@ AddEventHandler('dd_outlawalerts:staticBlip', function(event, eventPos)
 			SetBlipAsShortRange(staticBlip, 0)
 
 			BeginTextCommandSetBlipName('STRING')
-			AddTextComponentSubstringPlayerName(title)
+			AddTextComponentSubstringPlayerName(event)
 			EndTextCommandSetBlipName(staticBlip)
 			while trans ~= 0 do
 				Wait(Config.Events[event].BlipTime * 4)
@@ -422,6 +422,18 @@ function checkGun()
 	return false
 end
 
+function mountedMelee()
+	local vehclass = GetVehicleClass(GetVehiclePedIsUsing(GetPlayerPed(-1)))
+	if vehclass == 8 then
+		if IsControlPressed(0, 345) then
+			if IsControlPressed(0, 346) or IsControlPressed(0, 347) then
+				return true
+			end
+		end
+	end
+	return false	
+end
+
 RegisterNetEvent('dd_outlawalerts:waitLoop')
 AddEventHandler('dd_outlawalerts:waitLoop', function(event)
 	waiting[event] = true
@@ -436,7 +448,7 @@ Citizen.CreateThread(function()
 			if checkGun() then
 				alert("Shots Fired", "Citizen", Jurisdiction, nil)
 			end
-		elseif IsPedInMeleeCombat(GetPlayerPed(-1)) then 
+		elseif IsPedInMeleeCombat(GetPlayerPed(-1)) or mountedMelee() then 
 			alert("Civil Disturbance", "Citizen", Jurisdiction, nil)
 		elseif IsPedJacking(GetPlayerPed(-1)) then
 			alert("Grand Theft Auto", "Citizen", Jurisdiction, nil)

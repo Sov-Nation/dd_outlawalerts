@@ -20,9 +20,9 @@ Config = {
                 }
             },
             Colour = 1, --sets the colour of both the static blip and the outlaw blip
-            BlipTime = 120, --the time it takes for the static blip to fade away to nothing
+            BlipTime = 60, --the time it takes for the static blip to fade away to nothing
             Outlaw = true, --sets whether an outlaw blip will be created for this event
-            OutlawTime = 120, --the time it takes for the outlaw blip to fade away to nothing
+            OutlawTime = 60, --the time it takes for the outlaw blip to fade away to nothing
             Chance = 50, --percentage that the event will trigger an alert
             Populated = true, --sets whether the event needs to take place in a populated zone in order to trigger an alert
             OwnershipCheck = false, --sets whether the ownership of the vehicle is taken into account for the alert chance
@@ -33,6 +33,11 @@ Config = {
                 ["Citizen"] = {
                     "~r~Civil Disturbance ~w~involving a ~r~",
                     "sex",
+                    "preveh",
+                    "pcname",
+                    "scname",
+                    "vehName",
+                    "plate",
                     "street1",
                     "street2"
                 },
@@ -73,11 +78,11 @@ Config = {
             Colour = 5,
             BlipTime = 60,
             Outlaw = true,
-            OutlawTime = 120,
+            OutlawTime = 60,
             Chance = 75,
             Populated = false,
             OwnershipCheck = true,
-            Waittime = 1
+            Waittime = 5
         },
         ["Vehicle Theft"] = {
             Text = {
@@ -105,7 +110,7 @@ Config = {
             Chance = 25,
             Populated = true,
             OwnershipCheck = true,
-            Waittime = 1
+            Waittime = 5
         },
         ["Weaponized Vehicle"] = {
             Text = {
@@ -128,7 +133,7 @@ Config = {
             BlipTime = 60,
             Outlaw = false,
             OutlawTime = 60,
-            Chance = 10,
+            Chance = 25,
             Populated = true,
             OwnershipCheck = false,
             Waittime = 30
@@ -158,7 +163,7 @@ Config = {
             Chance = 60,
             Populated = false,
             OwnershipCheck = true,
-            Waittime = 1
+            Waittime = 5
         },
         ["Drug Deal"] = {
             Text = {
@@ -177,11 +182,11 @@ Config = {
             Colour = 7,
             BlipTime = 60,
             Outlaw = true,
-            OutlawTime = 60,
+            OutlawTime = 30,
             Chance = 40,
             Populated = true,
             OwnershipCheck = false,
-            Waittime = 1
+            Waittime = 5
         },
         ["Bank Robbery"] = {
             Text = {
@@ -204,7 +209,7 @@ Config = {
             Chance = 100,
             Populated = false,
             OwnershipCheck = false,
-            Waittime = 1
+            Waittime = 5
         },
         ["Shop Robbery"] = {
             Text = {
@@ -227,7 +232,7 @@ Config = {
             Chance = 90,
             Populated = false,
             OwnershipCheck = false,
-            Waittime = 1
+            Waittime = 5
         },
         ["Explosion"] = {
             Text = {
@@ -243,9 +248,9 @@ Config = {
                 }
             },
             Colour = 1,
-            BlipTime = 120,
+            BlipTime = 60,
             Outlaw = false,
-            OutlawTime = 120,
+            OutlawTime = 60,
             Chance = 90,
             Populated = true,
             OwnershipCheck = false,
