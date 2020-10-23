@@ -33,6 +33,11 @@ Config = {
                 ["Citizen"] = {
                     "~r~Civil Disturbance ~w~involving a ~r~",
                     "sex",
+                    "preveh",
+                    "pcname",
+                    "scname",
+                    "vehName",
+                    "plate",
                     "street1",
                     "street2"
                 },
